@@ -1,8 +1,8 @@
 package com.clone.velog.service;
 
-import com.clone.velog.dto.MemberResponseDto;
+import com.clone.velog.web.dto.response.MemberResponseDto;
 import com.clone.velog.exception.ApiRequestException;
-import com.clone.velog.repository.MemberRepository;
+import com.clone.velog.web.domain.member.MemberRepository;
 import com.clone.velog.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberService {
 
+
     private final MemberRepository memberRepository;
+
+
+
 
     @Transactional(readOnly = true)
     public MemberResponseDto getMemberInfo(String email) {
@@ -29,5 +33,6 @@ public class MemberService {
                 .map(MemberResponseDto::memberResponseDto)
                 .orElseThrow(() -> new ApiRequestException("로그인 유저 정보가 없습니다."));
     }
+
 
 }
