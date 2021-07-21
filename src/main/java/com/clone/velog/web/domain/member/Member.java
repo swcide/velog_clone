@@ -18,11 +18,11 @@ import java.util.List;
 @Entity
 public class Member extends Timestamped {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Long id;
+    private Long memberId;
 
-    @Column(nullable = false,name="ZZZ")
+    @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)
@@ -37,7 +37,7 @@ public class Member extends Timestamped {
     @Column
     private String mComment;
 
-    @ColumnDefault("true")
+    @ColumnDefault("1")
     private boolean status;
 
     @Column
@@ -51,8 +51,8 @@ public class Member extends Timestamped {
 
 
     @Builder
-    public Member(Long id, String email, String pwd, String nickname, String velogName, String mComment, boolean status, String profileImg, String github, Authority authority) {
-        this.id = id;
+public Member(Long id, String email, String pwd, String nickname, String velogName, String mComment, boolean status, String profileImg, String github, Authority authority) {
+        this.memberId = id;
         this.email = email;
         this.pwd = pwd;
         this.nickname = nickname;

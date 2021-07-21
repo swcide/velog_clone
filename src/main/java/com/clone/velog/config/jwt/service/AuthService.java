@@ -30,17 +30,17 @@ public class AuthService {
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
 
-    // 회원가입 예외처리
-    @Transactional
-    public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
-        // 이메일 , 닉네임 예외처리
-        isEmailAndNickNameDuplicated(memberRequestDto);
-        // 비밀번호 체크
+        // 회원가입 예외처리
+        @Transactional
+        public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
+            // 이메일 , 닉네임 예외처리
+            isEmailAndNickNameDuplicated(memberRequestDto);
+            // 비밀번호 체크
 //        memberRequestDto.pwdCheck();
 
-        Member member = memberRequestDto.toMember(passwordEncoder);
+            Member member = memberRequestDto.toMember(passwordEncoder);
 
-        return MemberResponseDto.memberResponseDto(memberRepository.save(member));
+            return MemberResponseDto.memberResponseDto(memberRepository.save(member));
     }
 
     @Transactional
@@ -68,7 +68,7 @@ public class AuthService {
 
         MemberResponseDto memberResponseDto = new MemberResponseDto(member);
         // 5. 토큰 발급
-        return new TokenWithMemberResponseDto(member,tokenDto);
+        return new TokenWithMemberResponseDto(memberResponseDto,tokenDto);
     }
 
     @Transactional

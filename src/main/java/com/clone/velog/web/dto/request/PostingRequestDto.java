@@ -3,12 +3,12 @@ package com.clone.velog.web.dto.request;
 import com.clone.velog.web.domain.member.Member;
 import com.clone.velog.web.domain.posting.Posting;
 import com.clone.velog.web.domain.tag.Tags;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -21,14 +21,23 @@ public class PostingRequestDto {
     private String content;
 //    private String originalfilename;
     private Long memberId;
-    private List<Tags> tags;
+    private Long likeCount;
+    private Tags tags;
 
     public Posting createPost(Member member) {
         return Posting.builder()
                 .title(title)
                 .content(content)
+                .likeCount(likeCount)
                 .member(member)
                 .build();
+    }
+
+
+    @Getter
+    public static class Tags {
+        public List<String> tagName = new ArrayList<>();
+
     }
 
 

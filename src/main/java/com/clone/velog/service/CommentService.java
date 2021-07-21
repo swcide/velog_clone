@@ -35,7 +35,7 @@ public class CommentService {
         Member member = memberRepository.findById(commentRequestDto.getMemberId()).orElseThrow(()-> new ApiRequestException("멤버가 존재하지 않습니다."));
 
         Comment comment = new Comment(commentRequestDto, posting, member);
-        return commentRepository.save(comment).getId();
+        return commentRepository.save(comment).getCommentId();
     }
 
     // 댓글 수정
@@ -45,7 +45,7 @@ public class CommentService {
         Member member = getMember(memberEmail);
 
         comment.update(commentRequestDto,member);
-        return comment.getId();
+        return comment.getCommentId();
     }
 
     // 댓글 삭제
@@ -53,12 +53,12 @@ public class CommentService {
     public Long deleteComment(Long commentId,String memberEmail) {
         Comment comment = getComment(commentId);
         Member member = getMember(memberEmail);
-        if(!comment.getMember().getId().equals(member.getId())) {
+        if(!comment.getMember().getMemberId().equals(member.getMemberId())) {
             throw new ApiRequestException("수정할 권한이 없습니다.");
         }
 
         comment.deleteComment();
-        return comment.getId();
+        return comment.getCommentId();
     }
 
 

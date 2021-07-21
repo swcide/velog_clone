@@ -34,6 +34,7 @@ public class MemberRequestDto {
                 .email(email)
                 .pwd(passwordEncoder.encode(pwd))
                 .nickname(nickname)
+                .status(true)
                 .authority(Authority.ROLE_USER)
                 .build();
     }

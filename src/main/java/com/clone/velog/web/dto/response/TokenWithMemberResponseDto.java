@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class TokenWithMemberResponseDto {
-    Member member;
+    MemberResponseDto member;
     TokenDto tokenDto;
 
-    public TokenWithMemberResponseDto(Member member, TokenDto tokenDto) {
+    public TokenWithMemberResponseDto(MemberResponseDto member, TokenDto tokenDto) {
         this.member = member;
         this.tokenDto = tokenDto;
     }

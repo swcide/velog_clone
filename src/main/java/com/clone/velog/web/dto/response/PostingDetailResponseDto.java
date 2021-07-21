@@ -12,19 +12,24 @@ import java.util.List;
 @NoArgsConstructor
 public class PostingDetailResponseDto {
     private Long postId;
+    private Long memberId;
     private String title;
     private String content;
+    private Long likeCount;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private List<CommentResponseDto> commentResponseDtoList;
+    private List<TagResponseDto> tagResponseDtoList;
 
-
-    public PostingDetailResponseDto(Posting posting, List<CommentResponseDto> commentResponseDtoList){
-        this.postId = posting.getId();
+    public PostingDetailResponseDto(Posting posting, List<CommentResponseDto> commentResponseDtoList, List<TagResponseDto> tagResponseDto){
+        this.postId = posting.getPostingId();
+        this.memberId =posting.getMember().getMemberId();
         this.title = posting.getTitle();
         this.content = posting.getContent();
+        this.likeCount = posting.getLikeCount();
         this.createdAt = posting.getCreatedAt();
         this.modifiedAt = posting.getModifiedAt();
         this.commentResponseDtoList = commentResponseDtoList;
+        this.tagResponseDtoList = tagResponseDto;
     }
 }

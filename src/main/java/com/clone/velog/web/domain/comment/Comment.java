@@ -17,9 +17,9 @@ import javax.persistence.*;
 @Entity
 public class Comment extends Timestamped {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Long id;
+    private Long commentId;
 
     @Column(nullable = false)
     private String content;
@@ -71,7 +71,7 @@ public class Comment extends Timestamped {
     }
 
     public void checkMember(CommentRequestDto commentRequestDto, Member member){
-        if (commentRequestDto.getMemberId() != member.getId()){
+        if (commentRequestDto.getMemberId() != member.getMemberId()){
             throw new ApiRequestException("수정할 권한이 없습니다.");
         }
     }

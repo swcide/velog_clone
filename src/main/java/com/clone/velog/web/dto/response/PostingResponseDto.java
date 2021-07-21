@@ -17,16 +17,18 @@ public class PostingResponseDto {
     private Long postId;
     private String title;
     private String content;
-    private Member member;
+    private Long memberId;
+    private Long likeCount;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
 
     public PostingResponseDto(Posting posting) {
-        this.postId = posting.getId();
+        this.postId = posting.getPostingId();
         this.title = posting.getTitle();
         this.content = posting.getContent();
-        this.member =posting.getMember();
+        this.memberId =posting.getMember().getMemberId();
+        this.likeCount =posting.getLikeCount();
         this.createdAt = posting.getCreatedAt();
         this.modifiedAt = posting.getModifiedAt();
     }
