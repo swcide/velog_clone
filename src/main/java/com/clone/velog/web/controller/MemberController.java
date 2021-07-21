@@ -10,6 +10,8 @@ import com.clone.velog.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -43,6 +45,13 @@ public class MemberController {
     @PostMapping("/login")
     public ResponseEntity<TokenWithMemberResponseDto> login(@RequestBody MemberRequestDto memberRequestDto) {
         return ResponseEntity.ok(authService.login(memberRequestDto));
+    }
+
+    // 탈퇴
+    @PutMapping("/withdrawal")
+    public ResponseEntity<Void> withdrawal(@AuthenticationPrincipal UserDetails userDetails) {
+        memberService.withdrawal(userDetails.getUsername());
+        return ResponseEntity.ok().build();
     }
 
     // 재발급

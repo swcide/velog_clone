@@ -23,6 +23,9 @@ public class PostingRequestDto {
     private Long memberId;
     private Long likeCount;
     private Tags tags;
+    private String contentMd;
+    private String previewText;
+    private String originalFileName;
 
     public Posting createPost(Member member) {
         return Posting.builder()
@@ -30,6 +33,9 @@ public class PostingRequestDto {
                 .content(content)
                 .likeCount(likeCount)
                 .member(member)
+                .contentMd(contentMd)
+                .previewText(previewText)
+                .originalFileName(originalFileName)
                 .build();
     }
 

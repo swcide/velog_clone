@@ -30,17 +30,17 @@ public class AuthService {
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
 
-        // 회원가입 예외처리
-        @Transactional
-        public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
-            // 이메일 , 닉네임 예외처리
-            isEmailAndNickNameDuplicated(memberRequestDto);
-            // 비밀번호 체크
+    // 회원가입 예외처리
+    @Transactional
+    public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
+        // 이메일 , 닉네임 예외처리
+        isEmailAndNickNameDuplicated(memberRequestDto);
+        // 비밀번호 체크
 //        memberRequestDto.pwdCheck();
 
-            Member member = memberRequestDto.toMember(passwordEncoder);
+        Member member = memberRequestDto.toMember(passwordEncoder);
 
-            return MemberResponseDto.memberResponseDto(memberRepository.save(member));
+        return MemberResponseDto.memberResponseDto(memberRepository.save(member));
     }
 
     @Transactional
@@ -64,11 +64,11 @@ public class AuthService {
         refreshTokenRepository.save(refreshToken);
 
         Member member = memberRepository.findByEmail(memberRequestDto.getEmail())
-                .orElseThrow(()->new ApiRequestException("멤버 못찾아~"));
+                .orElseThrow(() -> new ApiRequestException("멤버 못찾아~"));
 
         MemberResponseDto memberResponseDto = new MemberResponseDto(member);
         // 5. 토큰 발급
-        return new TokenWithMemberResponseDto(memberResponseDto,tokenDto);
+        return new TokenWithMemberResponseDto(memberResponseDto, tokenDto);
     }
 
     @Transactional
@@ -109,10 +109,11 @@ public class AuthService {
             throw new ApiRequestException("이미 가입되어 있는 유저입니다.");
         }
 
-        if(memberRepository.existsByNickName(memberRequestDto.getNickName())){
+        if (memberRepository.existsByNickName(memberRequestDto.getNickName())) {
             throw new ApiRequestException("이미 사용 중인 별명입니다.");
         }
     }
+
 
 }
 

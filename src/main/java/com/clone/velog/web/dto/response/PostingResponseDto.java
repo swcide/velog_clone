@@ -19,6 +19,9 @@ public class PostingResponseDto {
     private String content;
     private Long memberId;
     private Long likeCount;
+    private String contentMd;
+    private String previewText;
+    private String originalFileName;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
@@ -31,5 +34,8 @@ public class PostingResponseDto {
         this.likeCount =posting.getLikeCount();
         this.createdAt = posting.getCreatedAt();
         this.modifiedAt = posting.getModifiedAt();
+        this.contentMd = posting.getContentMd();
+        this.previewText = posting.getPreviewText();
+        this.originalFileName = posting.getOriginalFileName();
     }
 }
