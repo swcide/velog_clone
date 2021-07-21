@@ -32,7 +32,7 @@ public class AuthService {
 
         // 회원가입 예외처리
         @Transactional
-        public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
+        public MemberResponseDto signup( MemberRequestDto memberRequestDto) {
             // 이메일 , 닉네임 예외처리
             isEmailAndNickNameDuplicated(memberRequestDto);
             // 비밀번호 체크
@@ -109,7 +109,7 @@ public class AuthService {
             throw new ApiRequestException("이미 가입되어 있는 유저입니다.");
         }
 
-        if(memberRepository.existsByNickname(memberRequestDto.getNickname())){
+        if(memberRepository.existsByNickName(memberRequestDto.getNickName())){
             throw new ApiRequestException("이미 사용 중인 별명입니다.");
         }
     }

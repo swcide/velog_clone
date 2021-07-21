@@ -2,7 +2,7 @@ package com.clone.velog.web.domain.member;
 
 import com.clone.velog.web.domain.common.Authority;
 import com.clone.velog.web.domain.common.Timestamped;
-import com.clone.velog.web.domain.posting.Posting;
+import com.clone.velog.web.dto.request.MemberRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,13 +29,13 @@ public class Member extends Timestamped {
     private String pwd;
 
     @Column(nullable = false)
-    private String nickname;
+    private String nickName;
 
     @Column
     private String velogName;
 
     @Column
-    private String mComment;
+    private String comment;
 
     @ColumnDefault("1")
     private boolean status;
@@ -51,17 +51,25 @@ public class Member extends Timestamped {
 
 
     @Builder
-public Member(Long id, String email, String pwd, String nickname, String velogName, String mComment, boolean status, String profileImg, String github, Authority authority) {
+public Member(Long id, String email, String pwd, String nickName, String velogName, String comment, boolean status, String profileImg, String github, Authority authority) {
         this.memberId = id;
         this.email = email;
         this.pwd = pwd;
-        this.nickname = nickname;
+        this.nickName = nickName;
         this.velogName = velogName;
-        this.mComment = mComment;
+        this.comment = comment;
         this.status = status;
         this.profileImg = profileImg;
         this.github = github;
         this.authority = authority;
 
+    }
+
+    public void updateMember(MemberRequestDto memberRequestDto) {
+        this.nickName = memberRequestDto.getNickName();
+        this.comment = memberRequestDto.getComment();
+        this.github = memberRequestDto.getGithub();
+        this.profileImg = memberRequestDto.getProfileImg();
+        this.pwd =memberRequestDto.getProfileImg();
     }
 }

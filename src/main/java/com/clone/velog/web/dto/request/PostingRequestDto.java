@@ -2,9 +2,7 @@ package com.clone.velog.web.dto.request;
 
 import com.clone.velog.web.domain.member.Member;
 import com.clone.velog.web.domain.posting.Posting;
-import com.clone.velog.web.domain.tag.Tags;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -12,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 public class PostingRequestDto {
 
@@ -33,12 +32,8 @@ public class PostingRequestDto {
                 .build();
     }
 
-
     @Getter
     public static class Tags {
         public List<String> tagName = new ArrayList<>();
-
     }
-
-
 }

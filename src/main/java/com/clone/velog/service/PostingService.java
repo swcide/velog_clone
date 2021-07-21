@@ -1,6 +1,6 @@
 package com.clone.velog.service;
 
-import com.clone.velog.web.dto.request.TagsRequestDto;
+
 import com.clone.velog.web.dto.response.TagNameAndCount;
 import com.clone.velog.web.domain.tag.Tags;
 import com.clone.velog.web.domain.tag.TagsRepository;
@@ -63,11 +63,11 @@ public class PostingService {
         Posting posting = getPost(postId);
         List<TagResponseDto> tagResponseDto = getTag(posting).stream().map(TagResponseDto::new).collect(Collectors.toList());
 
-
-
-
         List<Comment> commentList = commentRepository.findAllByPostingOrderByCreatedAtDesc(posting);
-        List<CommentResponseDto> commentResponseDtoList = commentList.stream().map(CommentResponseDto::new).collect(Collectors.toList());
+        List<CommentResponseDto> commentResponseDtoList = commentList
+                .stream()
+                .map(CommentResponseDto::new)
+                .collect(Collectors.toList());
 
         return new PostingDetailResponseDto(posting, commentResponseDtoList,tagResponseDto);
     }
@@ -79,14 +79,14 @@ public class PostingService {
         Member member = getMemberById(postingRequestDto.getMemberId());
         Posting posting = postingRequestDto.createPost(member);
 
+
         //포스트 flush -> postId가 존재
         postingRepository.save(posting);
         List<Tags> tags = Tags.createTag(posting,postingRequestDto);
 
-
         dupTag(posting, tags);
-
         tagsRepository.saveAll(tags);
+
 
         return posting.getPostingId();
     }

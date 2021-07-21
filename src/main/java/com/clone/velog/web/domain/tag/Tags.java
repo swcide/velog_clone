@@ -1,5 +1,6 @@
 package com.clone.velog.web.domain.tag;
 
+
 import com.clone.velog.web.domain.posting.Posting;
 import com.clone.velog.web.dto.request.PostingRequestDto;
 import lombok.AllArgsConstructor;
@@ -10,10 +11,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Tags {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,15 +34,13 @@ public class Tags {
     }
 
     //== 태그 생성 ==//
-    public static List<Tags> createTag(Posting posting, PostingRequestDto postingRequestDto ) {
+    public static List<Tags> createTag(Posting posting, PostingRequestDto postingRequestDto) {
         List<String> tagNameList = postingRequestDto.getTags().getTagName();
         List<Tags> tagsList = new ArrayList<>();
         for(String tagName : tagNameList){
             Tags tags = new Tags(posting,tagName);
             tagsList.add(tags);
         }
-
-
         return tagsList;
     }
 
