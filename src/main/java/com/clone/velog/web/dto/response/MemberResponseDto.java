@@ -25,11 +25,11 @@ public class MemberResponseDto {
     public MemberResponseDto(Member member) {
         this.memberId = member.getMemberId();
         this.email =member.getEmail();
-        this.nickName =member.getNickname();
+        this.nickName =member.getNickName();
         this.velogName =member.getVelogName();
         this.profileImg =member.getProfileImg();
         this.github =member.getGithub();
-        this.comment = member.getMComment();
+        this.comment = member.getComment();
 
     }
 

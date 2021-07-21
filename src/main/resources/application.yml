@@ -1,24 +1,21 @@
 spring:
-
-  h2:
-    console:
-      enabled: true
-
   
   datasource:
-    url: jdbc:h2:mem:velogclone
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:mysql://clone-velog-db.c5uhdam6decz.ap-northeast-2.rds.amazonaws.com:3306/clone_velog?serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: admin
+    password: qkrdusdn123
 
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    #    hibernate:
-    #      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
         show_sql: false
+    generate-ddl: true
+
 
 logging:
   level:

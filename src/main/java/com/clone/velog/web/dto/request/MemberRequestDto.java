@@ -27,13 +27,13 @@ public class MemberRequestDto {
 
     @Size(max = 10)
     @NotEmpty
-    private String nickname;
+    private String nickName;
 
     public Member toMember(PasswordEncoder passwordEncoder) {
         return Member.builder()
                 .email(email)
                 .pwd(passwordEncoder.encode(pwd))
-                .nickname(nickname)
+                .nickName(nickName)
                 .status(true)
                 .authority(Authority.ROLE_USER)
                 .build();

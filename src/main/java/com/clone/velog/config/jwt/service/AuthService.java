@@ -57,8 +57,8 @@ public class AuthService {
 
         // 4. RefreshToken 저장
         RefreshToken refreshToken = RefreshToken.builder()
-                .key(authentication.getName())
-                .value(tokenDto.getRefreshToken())
+                .refreshKey(authentication.getName())
+                .refreshValue(tokenDto.getRefreshToken())
                 .build();
 
         refreshTokenRepository.save(refreshToken);
@@ -82,11 +82,11 @@ public class AuthService {
         Authentication authentication = tokenProvider.getAuthentication(tokenRequestDto.getAccessToken());
 
         // 3. 저장소에서 Member ID 를 기반으로 Refresh Token 값 가져옴
-        RefreshToken refreshToken = refreshTokenRepository.findByKey(authentication.getName())
+        RefreshToken refreshToken = refreshTokenRepository.findByRefreshKey(authentication.getName())
                 .orElseThrow(() -> new ApiRequestException("로그아웃 된 사용자입니다."));
 
         // 4. Refresh Token 일치하는지 검사
-        if (!refreshToken.getValue().equals(tokenRequestDto.getRefreshToken())) {
+        if (!refreshToken.getRefreshValue().equals(tokenRequestDto.getRefreshToken())) {
             throw new ApiRequestException("토큰의 유저 정보가 일치하지 않습니다.");
         }
 
@@ -109,7 +109,7 @@ public class AuthService {
             throw new ApiRequestException("이미 가입되어 있는 유저입니다.");
         }
 
-        if(memberRepository.existsByNickname(memberRequestDto.getNickname())){
+        if(memberRepository.existsByNickName(memberRequestDto.getNickName())){
             throw new ApiRequestException("이미 사용 중인 별명입니다.");
         }
     }
