@@ -1,6 +1,6 @@
 package com.clone.velog.service;
 
-
+import com.clone.velog.web.dto.request.TagsRequestDto;
 import com.clone.velog.web.dto.response.TagNameAndCount;
 import com.clone.velog.web.domain.tag.Tags;
 import com.clone.velog.web.domain.tag.TagsRepository;
@@ -79,14 +79,14 @@ public class PostingService {
         Member member = getMemberById(postingRequestDto.getMemberId());
         Posting posting = postingRequestDto.createPost(member);
 
-
         //포스트 flush -> postId가 존재
         postingRepository.save(posting);
         List<Tags> tags = Tags.createTag(posting,postingRequestDto);
 
-        dupTag(posting, tags);
-        tagsRepository.saveAll(tags);
 
+        dupTag(posting, tags);
+
+        tagsRepository.saveAll(tags);
 
         return posting.getPostingId();
     }

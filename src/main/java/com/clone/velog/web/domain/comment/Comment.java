@@ -52,17 +52,12 @@ public class Comment extends Timestamped {
         this.status = false;
     }
 
-
-
     // 댓글 수정 - 내용만 확인
     public void update(CommentRequestDto commentRequestDto,Member  member) {
         checkEmptyComment(commentRequestDto);
         checkMember(commentRequestDto,member);
         this.content = commentRequestDto.getContent();
     }
-
-
-
 
     public void checkEmptyComment(CommentRequestDto commentRequestDto){
         if(commentRequestDto.getContent().length() == 0 || commentRequestDto.getContent().isEmpty()){
@@ -75,6 +70,4 @@ public class Comment extends Timestamped {
             throw new ApiRequestException("수정할 권한이 없습니다.");
         }
     }
-
-
 }

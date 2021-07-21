@@ -45,4 +45,11 @@ public class MemberService {
         member.updateMember(memberRequestDto);
 
     }
+    // 탈퇴
+    @Transactional
+    public void withdrawal(String username) {
+        Member member = memberRepository.findByEmail(username)
+                .orElseThrow(()-> new ApiRequestException("유저 정보가 없습니다."));
+        member.memberStatusDelete();
+    }
 }

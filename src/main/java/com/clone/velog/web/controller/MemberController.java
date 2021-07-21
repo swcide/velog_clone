@@ -57,6 +57,13 @@ public class MemberController {
     }
 
 
+    // 탈퇴
+    @PutMapping("/withdrawal")
+    public ResponseEntity<Void> withdrawal(@AuthenticationPrincipal UserDetails userDetails) {
+        memberService.withdrawal(userDetails.getUsername());
+        return ResponseEntity.ok().build();
+    }
+
     // 재발급
     @PostMapping("/reissue")
     public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {

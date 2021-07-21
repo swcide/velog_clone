@@ -16,6 +16,9 @@ public class PostingDetailResponseDto {
     private String title;
     private String content;
     private Long likeCount;
+    private String contentMd;
+    private String previewText;
+    private String originalFileName;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private List<CommentResponseDto> commentResponseDtoList;
@@ -31,5 +34,8 @@ public class PostingDetailResponseDto {
         this.modifiedAt = posting.getModifiedAt();
         this.commentResponseDtoList = commentResponseDtoList;
         this.tagResponseDtoList = tagResponseDto;
+        this.contentMd = posting.getContentMd();
+        this.previewText = posting.getPreviewText();
+        this.originalFileName = posting.getOriginalFileName();
     }
 }

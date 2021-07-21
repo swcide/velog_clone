@@ -30,6 +30,16 @@ public class Posting extends Timestamped {
     @Column
     private boolean status;
 
+    @Column
+    private String contentMd;
+
+    @Column
+    private String previewText;
+
+    //img url
+    @Column
+    private String originalFileName;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -37,13 +47,16 @@ public class Posting extends Timestamped {
 
 
     @Builder
-    public Posting(String title, String content, Long likeCount, Member member) {
+    public Posting(String title, String content, Long likeCount, Member member, String contentMd, String previewText, String originalFileName) {
         this.title = title;
         this.content = content;
         this.likeCount = likeCount;
         this.member = member;
         this.status = true;
         this.likeCount = 0L;
+        this.contentMd = contentMd;
+        this.previewText = previewText;
+        this.originalFileName = originalFileName;
     }
 
     // 업데이트
