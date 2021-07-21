@@ -11,5 +11,5 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     List<Comment> findAllByPostingOrderByCreatedAtDesc(Posting posting);
     // 삭제할 posting에 달린 comment 우선 삭제
-    void deleteAllByPosting(Posting posting);
+//    void deleteAllByPosting(Posting posting);
 }

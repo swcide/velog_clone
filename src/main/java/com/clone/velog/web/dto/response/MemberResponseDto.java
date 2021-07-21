@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MemberResponseDto {
 
-    private Long id;
+    private Long memberId;
     private String email;
     private String nickName;
     private String velogName;
@@ -23,7 +23,7 @@ public class MemberResponseDto {
     }
 
     public MemberResponseDto(Member member) {
-        this.id = member.getId();
+        this.memberId = member.getMemberId();
         this.email =member.getEmail();
         this.nickName =member.getNickname();
         this.velogName =member.getVelogName();

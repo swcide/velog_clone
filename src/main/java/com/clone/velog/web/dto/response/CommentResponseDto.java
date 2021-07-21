@@ -9,12 +9,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentResponseDto {
-    private Long comentId;
+    private Long commentId;
+    private Long memberId;
     private String content;
     private Boolean status;
 
     public CommentResponseDto(Comment comment){
-        this.comentId = comment.getId();
+        this.commentId = comment.getCommentId();
+        this.memberId=comment.getMember().getMemberId();
         this.content = comment.getContent();
         this.status = comment.getStatus();
     }

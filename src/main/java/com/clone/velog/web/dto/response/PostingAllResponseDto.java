@@ -1,24 +1,30 @@
 package com.clone.velog.web.dto.response;
 
-import com.clone.velog.web.domain.comment.Comment;
-import com.clone.velog.web.domain.member.Member;
-import com.clone.velog.web.domain.posting.Posting;
-import com.clone.velog.web.domain.tag.Tags;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Page;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class PostingAllResponseDto {
-    private List<PostingResponseDto> postingResponseDtos;
-    private List<TagResponseDto> tagResponseDtoList;
+    private List<PostingResponseDto> postingResponseDto;
+    private List<TagResponseDto> tagList;
+    private List<TagNameAndCount> tagNameAndCounts;
+    private MemberResponseDto memberResponseDto;
+
+//    public PostingAllResponseDto(List<PostingResponseDto> postingResponseDto, List<TagResponseDto> tagResponseDto) {
+//        this.postingResponseDto = postingResponseDto;
+//        this.tagList =tagResponseDto;
+//    }
 
 
-
-
+    public PostingAllResponseDto(List<PostingResponseDto> postingResponseDto, List<TagNameAndCount> tagResponseDto2,MemberResponseDto memberResponseDto) {
+        this.postingResponseDto = postingResponseDto;
+        this.tagNameAndCounts =tagResponseDto2;
+        this.memberResponseDto =memberResponseDto;
+    }
 
 }

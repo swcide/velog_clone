@@ -15,9 +15,9 @@ import java.util.List;
 @ToString
 public class Posting extends Timestamped {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Long id;
+    private Long postingId;
 
     @Column(nullable = false)
     private String title;
@@ -25,20 +25,16 @@ public class Posting extends Timestamped {
     @Column(nullable = false)
     private String content;
 
-
-
     @Column
     private Long likeCount;
 
-    @ManyToOne(targetEntity = Member.class,fetch = FetchType.LAZY)
+    @Column
+    private boolean status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-//    @Column
-//    private String originalFilename;
-//
-//    @Column
-//    private String renameFilename;
 
     @Builder
     public Posting(String title, String content, Long likeCount, Member member) {
@@ -46,31 +42,21 @@ public class Posting extends Timestamped {
         this.content = content;
         this.likeCount = likeCount;
         this.member = member;
-//        this.originalFilename = originalFilename;
-//        this.renameFilename = renameFilename;
+        this.status = true;
         this.likeCount = 0L;
     }
 
-    // new posting
-//    public Posting(PostingRequestDto postingRequestDto) {
-//        checkEmpty(postingRequestDto);
-//        this.title = postingRequestDto.getTitle();
-//        this.content = postingRequestDto.getContent();
-////        this.originalFilename = postingRequestDto.getOriginalFilename();
-//        this.member = postingRequestDto.getMember();
-//        this.tag = postingRequestDto.getTag();
-//    }
-
-    public void deletePosting(Posting posting, Member member) {
-
-
-    }
-
+    // 업데이트
     public void updatePosting(PostingRequestDto postingRequestDto){
         checkEmpty(postingRequestDto);
         this.title = postingRequestDto.getTitle();
         this.content = postingRequestDto.getContent();
     }
+    //삭제
+    public void deletePosting() {
+        this.status = false;
+    }
+
 
     public void checkEmpty(PostingRequestDto postingRequestDto){
         if(postingRequestDto.getTitle() == null || postingRequestDto.getTitle().isEmpty()){
