@@ -1,5 +1,6 @@
 package com.clone.velog.service;
 
+import com.clone.velog.web.domain.comment.Comment;
 import com.clone.velog.web.dto.response.TagNameAndCount;
 import com.clone.velog.web.domain.tag.Tags;
 import com.clone.velog.web.domain.tag.TagsRepository;
@@ -43,19 +44,7 @@ public class PostingService {
 //
 //
 //
-//    // 게시물 상세
-//    public PostingDetailResponseDto getPostingDetail(Long postId) {
-//        Posting posting = getPost(postId);
-//        List<TagResponseDto> tagResponseDto = getTag(posting).stream().map(TagResponseDto::new).collect(Collectors.toList());
-//
-//        List<Comment> commentList = commentRepository.findAllByPostingOrderByCreatedAtDesc(posting);
-//        List<CommentResponseDto> commentResponseDtoList = commentList
-//                .stream()
-//                .map(CommentResponseDto::new)
-//                .collect(Collectors.toList());
-//
-//        return new PostingDetailResponseDto(posting, commentResponseDtoList,tagResponseDto);
-//    }
+
 //
 //
 //    // 게시물 등록
@@ -211,5 +200,18 @@ public class PostingService {
 
         return postingUserResponseDto;
 
+    }
+
+
+    // 게시물 상세
+    public PostingDetailResponseDto getPostingDetail(Long postId) {
+        Posting posting = getPost(postId);
+        List<Comment> commentList = commentRepository.findAllByPostingOrderByCreatedAtDesc(posting);
+        List<CommentResponseDto> commentResponseDtoList = commentList
+                .stream()
+                .map(CommentResponseDto::new)
+                .collect(Collectors.toList());
+
+        return new PostingDetailResponseDto(posting, commentResponseDtoList);
     }
 }

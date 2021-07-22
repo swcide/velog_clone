@@ -2,6 +2,7 @@ package com.clone.velog.web.controller;
 
 import com.clone.velog.service.PostingService;
 import com.clone.velog.web.dto.request.PostingRequestDto;
+import com.clone.velog.web.dto.response.PostingDetailResponseDto;
 import com.clone.velog.web.dto.response.PostingResponseDto;
 import com.clone.velog.web.dto.response.PostingUserResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +39,11 @@ public class PostingController {
         return postingService.getMemberPostings(memberId, page, size);
     }
 //
-//    // member에 따른 상세 게시물
-//    @GetMapping("/detail/{postId}")
-//    public PostingDetailResponseDto getPostingDetail(@PathVariable Long postId){
-//        return postingService.getPostingDetail(postId);
-//    }
+    // member에 따른 상세 게시물
+    @GetMapping("/detail/{postId}")
+    public PostingDetailResponseDto getPostingDetail(@PathVariable Long postId){
+        return postingService.getPostingDetail(postId);
+    }
 //
     // 게시물 등록
     @PostMapping("/write")

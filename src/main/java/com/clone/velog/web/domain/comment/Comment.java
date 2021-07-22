@@ -25,7 +25,7 @@ public class Comment extends Timestamped {
     private String content;
 
     //  댓글 상테
-    @Column(nullable = false)
+    @Column
     private Boolean status;
 
     // for counting

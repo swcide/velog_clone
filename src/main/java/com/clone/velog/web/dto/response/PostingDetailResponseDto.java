@@ -2,11 +2,13 @@ package com.clone.velog.web.dto.response;
 
 
 import com.clone.velog.web.domain.posting.Posting;
+import com.clone.velog.web.domain.tag.Tags;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
@@ -24,7 +26,7 @@ public class PostingDetailResponseDto {
     private List<CommentResponseDto> commentResponseDtoList;
     private List<TagResponseDto> tagResponseDtoList;
 
-    public PostingDetailResponseDto(Posting posting, List<CommentResponseDto> commentResponseDtoList, List<TagResponseDto> tagResponseDto){
+    public PostingDetailResponseDto(Posting posting, List<CommentResponseDto> commentResponseDtoList){
         this.postId = posting.getPostingId();
         this.memberId =posting.getMember().getMemberId();
         this.title = posting.getTitle();
@@ -33,7 +35,7 @@ public class PostingDetailResponseDto {
         this.createdAt = posting.getCreatedAt();
         this.modifiedAt = posting.getModifiedAt();
         this.commentResponseDtoList = commentResponseDtoList;
-        this.tagResponseDtoList = tagResponseDto;
+        this.tagResponseDtoList = posting.getTags().stream().map(TagResponseDto::new).collect(Collectors.toList());
         this.contentMd = posting.getContentMd();
         this.previewText = posting.getPreviewText();
         this.imgUrl = posting.getImgUrl();
