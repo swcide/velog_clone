@@ -51,6 +51,8 @@ public class Member extends Timestamped {
     private Authority authority;
 
 
+
+
     @Builder
     public Member(Long id, String email, String pwd, String nickName, String velogName, String comment, boolean status, String profileImg, String github, Authority authority) {
         this.memberId = id;

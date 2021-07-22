@@ -22,15 +22,25 @@ public class SearchService {
 
 
     public List<PostingResponseDto> search(String query,int page, int size) {
-        Page<Posting> pagePaging = postingRepository.findByTitleContainingOrContentContainingOrderByCreatedAtDesc(query, query,PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "createdAt")));
+
+        System.out.println(query);
+
+        List<Posting> pagePaging = postingRepository.findByTitleContainingOrContentContainingOrderByCreatedAtDesc(query, query);
         return pagePaging.stream()
                 .map(PostingResponseDto::new)
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Todd
+     * @param tagName
+     * @param page
+     * @param size
+     * @return
+     */
     public List<PostingResponseDto> tagSearch(String tagName,int page, int size) {
 
-        List<Tags> tags = tagsRepository.findAllByTagName(tagName);
+           List<Tags> tags = tagsRepository.findAllByTagName(tagName);
         List<Posting> post = tags.stream().map(Tags::getPosting).collect(Collectors.toList());
 
         Pageable pageable = PageRequest.of(page, size);
