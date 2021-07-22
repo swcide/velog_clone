@@ -4,7 +4,7 @@ import com.clone.velog.service.PostingService;
 import com.clone.velog.web.dto.request.PostingRequestDto;
 import com.clone.velog.web.dto.response.PostingDetailResponseDto;
 import com.clone.velog.web.dto.response.PostingResponseDto;
-import com.clone.velog.web.dto.response.PostingUserResponseDto;
+import com.clone.velog.web.dto.response.PostingAllByMemberResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +32,7 @@ public class PostingController {
 
     // member에 따른 전체 게시물 목록
     @GetMapping("/{memberId}")
-    public PostingUserResponseDto getMemberPostings(@PathVariable Long memberId){
+    public PostingAllByMemberResponseDto getMemberPostings(@PathVariable Long memberId){
         int page = 0;
         int size = 10;
 
@@ -49,7 +49,7 @@ public class PostingController {
     @PostMapping("/write")
     public Long createPosting(@RequestBody PostingRequestDto postingRequestDto){
 
-        System.out.println(postingRequestDto.getTagList().getStringTagName());
+//        System.out.println(postingRequestDto.getTagList().getStringTagName());
         return postingService.createPosting(postingRequestDto);
     }
 //

@@ -36,20 +36,33 @@ public class MemberService {
                 .orElseThrow(() -> new ApiRequestException("로그인 유저 정보가 없습니다."));
     }
 
-
-    public void memberUpdate(MemberRequestDto memberRequestDto, String email) {
-
-        Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new ApiRequestException("유저 정보가 없습니다."));
-
-        member.updateMember(memberRequestDto);
-
+    // 회원 프로필 조회
+    @Transactional
+    public MemberResponseDto getMemberDetail(String email) {
+        Member member = EmailCheck(email);
+        return new MemberResponseDto(member);
     }
+
+    // 회원 프로필 수정
+    @Transactional
+    public Long updateMemberDetail(MemberRequestDto memberRequestDto, String email) {
+        Member member = EmailCheck(email);
+        member.updateMember(memberRequestDto);
+        return member.getMemberId();
+    }
+
     // 탈퇴
     @Transactional
     public void withdrawal(String username) {
         Member member = memberRepository.findByEmail(username)
                 .orElseThrow(()-> new ApiRequestException("유저 정보가 없습니다."));
         member.memberStatusDelete();
+    }
+
+    // 유저를 email로 존재 여부 체크한 후 member로 반환하는 메서드
+    public Member EmailCheck(String email){
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new ApiRequestException("유저 정보가 없습니다."));
+        return member;
     }
 }

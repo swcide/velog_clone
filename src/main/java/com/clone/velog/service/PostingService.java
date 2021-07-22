@@ -182,21 +182,20 @@ public class PostingService {
     }
 
 //     내 게시물 전체 목록
-    public  PostingUserResponseDto getMemberPostings(Long memberId, int page, int size) {
+    public PostingAllByMemberResponseDto getMemberPostings(Long memberId, int page, int size) {
 
-        Pageable pageable = PageRequest.of(page ,size);
+        Pageable pageable = PageRequest.of(page, size);
 
         Member member = getMemberById(memberId);
         MemberResponseDto memberResponseDto = new MemberResponseDto(member);
 
-        List<Posting> findPostingByMember = postingRepository.findAllMemberId(memberId,pageable);
+        List<Posting> findPostingByMember = postingRepository.findAllMemberId(memberId, pageable);
         List<PostingResponseDto> postingResponseDto = findPostingByMember.stream().map(PostingResponseDto::new).collect(Collectors.toList());
 
         List<TagNameAndCount> tagList = tagsRepository.findAll(memberId);
         List<TagResponseDto> tagResponseDto = tagList.stream().map(tag->new TagResponseDto(tag)).collect(Collectors.toList());
 
-
-        PostingUserResponseDto postingUserResponseDto =new PostingUserResponseDto(postingResponseDto,tagResponseDto,memberResponseDto);
+        PostingAllByMemberResponseDto postingUserResponseDto =new PostingAllByMemberResponseDto(postingResponseDto,tagResponseDto,memberResponseDto);
 
         return postingUserResponseDto;
 

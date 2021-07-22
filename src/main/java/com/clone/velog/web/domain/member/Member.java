@@ -2,10 +2,6 @@ package com.clone.velog.web.domain.member;
 
 import com.clone.velog.web.domain.common.Authority;
 import com.clone.velog.web.domain.common.Timestamped;
-<<<<<<<<< Temporary merge branch 1
-import com.clone.velog.web.domain.posting.Posting;
-=========
->>>>>>>>> Temporary merge branch 2
 import com.clone.velog.web.dto.request.MemberRequestDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +10,6 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Setter
 @Getter
@@ -55,11 +50,7 @@ public class Member extends Timestamped {
 
 
     @Builder
-<<<<<<<<< Temporary merge branch 1
     public Member(Long id, String email, String pwd, String nickName, String velogName, String comment, boolean status, String profileImg, String github, Authority authority) {
-=========
-public Member(Long id, String email, String pwd, String nickName, String velogName, String comment, boolean status, String profileImg, String github, Authority authority) {
->>>>>>>>> Temporary merge branch 2
         this.memberId = id;
         this.email = email;
         this.pwd = pwd;

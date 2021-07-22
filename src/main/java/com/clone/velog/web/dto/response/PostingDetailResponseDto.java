@@ -25,6 +25,7 @@ public class PostingDetailResponseDto {
     private LocalDateTime modifiedAt;
     private List<CommentResponseDto> commentResponseDtoList;
     private List<TagResponseDto> tagResponseDtoList;
+    private MemberResponseDto memberResponseDto;
 
     public PostingDetailResponseDto(Posting posting, List<CommentResponseDto> commentResponseDtoList){
         this.postId = posting.getPostingId();
@@ -39,5 +40,6 @@ public class PostingDetailResponseDto {
         this.contentMd = posting.getContentMd();
         this.previewText = posting.getPreviewText();
         this.imgUrl = posting.getImgUrl();
+        this.memberResponseDto = new MemberResponseDto(posting.getMember());
     }
 }
