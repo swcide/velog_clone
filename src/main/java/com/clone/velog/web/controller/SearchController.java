@@ -1,7 +1,7 @@
 package com.clone.velog.web.controller;
 
 import com.clone.velog.service.SearchService;
-import com.clone.velog.web.dto.response.PostingResponseDto;
+import com.clone.velog.web.dto.response.posting.PostingResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ public class SearchController {
 //    private final
     @GetMapping("/api/search/{query}")
     public List<PostingResponseDto> search(@PathVariable String query){
-        int page = 1;
+        int page = 0;
         int size = 5;
         return searchService.search(query,page,size);
     }

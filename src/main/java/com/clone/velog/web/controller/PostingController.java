@@ -2,10 +2,12 @@ package com.clone.velog.web.controller;
 
 import com.clone.velog.service.PostingService;
 import com.clone.velog.web.dto.request.PostingRequestDto;
-import com.clone.velog.web.dto.response.PostingDetailResponseDto;
-import com.clone.velog.web.dto.response.PostingResponseDto;
-import com.clone.velog.web.dto.response.PostingUserResponseDto;
+import com.clone.velog.web.dto.response.posting.PostingDetailResponseDto;
+import com.clone.velog.web.dto.response.posting.PostingResponseDto;
+import com.clone.velog.web.dto.response.posting.PostingUserResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,14 +55,13 @@ public class PostingController {
         return postingService.createPosting(postingRequestDto);
     }
 //
-//    // 게시물 수정
-//    @PutMapping("/update/{postId}")
-//    public Long updatePosting(@PathVariable Long postId, @RequestBody PostingRequestDto postingRequestDto,@AuthenticationPrincipal UserDetails userDetails){
-//        // 현재 로그인한 유저 정보
-//        String memberEmail = userDetails.getUsername();
-//        System.out.println(memberEmail);
-//        return postingService.updatePosting(postId, postingRequestDto, memberEmail);
-//    }
+    // 게시물 수정
+    @PutMapping("/update/{postId}")
+    public Long updatePosting(@PathVariable Long postId, @RequestBody PostingRequestDto postingRequestDto,@AuthenticationPrincipal UserDetails userDetails){
+        // 현재 로그인한 유저 정보
+        String memberEmail = userDetails.getUsername();
+        return postingService.updatePosting(postId, postingRequestDto, memberEmail);
+    }
 //
 //    // 게시물 삭제
 //    @PutMapping("/delete/{postId}")

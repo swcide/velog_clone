@@ -2,7 +2,7 @@ package com.clone.velog.service;
 
 import com.clone.velog.web.domain.member.Member;
 import com.clone.velog.web.dto.request.MemberRequestDto;
-import com.clone.velog.web.dto.response.MemberResponseDto;
+import com.clone.velog.web.dto.response.member.MemberResponseDto;
 import com.clone.velog.exception.ApiRequestException;
 import com.clone.velog.web.domain.member.MemberRepository;
 import com.clone.velog.util.SecurityUtil;
@@ -33,10 +33,12 @@ public class MemberService {
     }
 
     // 회원 프로필 조회
-    public MemberResponseDto getMemberDetail(Long memberId, String email) {
-
-        return ;
-    }
+//    public MemberResponseDto getMemberDetail(Long memberId, String email) {
+//
+//
+//
+//        return ;
+//    }
 
 
     // 회원 프로필 수정

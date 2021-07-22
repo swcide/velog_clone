@@ -120,10 +120,13 @@ public class Posting extends Timestamped {
 
 
     // 업데이트
-    public void updatePosting(PostingRequestDto postingRequestDto){
+    public void updatePosting(PostingRequestDto postingRequestDto, List<Tags> tags){
         checkEmpty(postingRequestDto);
         this.title = postingRequestDto.getTitle();
         this.content = postingRequestDto.getContent();
+        for (Tags tag : tags) {
+            this.addTags(tag);
+        }
     }
     //삭제
     public void deletePosting() {

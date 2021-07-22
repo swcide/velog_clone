@@ -1,13 +1,10 @@
-package com.clone.velog.web.dto.response;
+package com.clone.velog.web.dto.response.tag;
 
 
-import com.clone.velog.web.domain.posting.Posting;
 import com.clone.velog.web.domain.tag.Tags;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Getter
 @NoArgsConstructor

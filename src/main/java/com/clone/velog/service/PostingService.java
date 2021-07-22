@@ -1,25 +1,30 @@
 package com.clone.velog.service;
 
 import com.clone.velog.web.domain.comment.Comment;
-import com.clone.velog.web.dto.response.TagNameAndCount;
+import com.clone.velog.web.dto.response.tag.TagNameAndCount;
 import com.clone.velog.web.domain.tag.Tags;
 import com.clone.velog.web.domain.tag.TagsRepository;
 import com.clone.velog.web.dto.response.*;
 import com.clone.velog.web.dto.request.PostingRequestDto;
 import com.clone.velog.exception.ApiRequestException;
-import com.clone.velog.web.domain.comment.Comment;
 import com.clone.velog.web.domain.member.Member;
 import com.clone.velog.web.domain.posting.Posting;
 import com.clone.velog.web.domain.comment.CommentRepository;
 import com.clone.velog.web.domain.member.MemberRepository;
 import com.clone.velog.web.domain.posting.PostingRepository;
+import com.clone.velog.web.dto.response.member.MemberResponseDto;
+import com.clone.velog.web.dto.response.posting.PostingDetailResponseDto;
+import com.clone.velog.web.dto.response.posting.PostingResponseDto;
+import com.clone.velog.web.dto.response.posting.PostingUserResponseDto;
+import com.clone.velog.web.dto.response.tag.TagResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
 
 
 @RequiredArgsConstructor
@@ -56,9 +61,9 @@ public class PostingService {
         }
     }
 
-    private void dupTag(Posting posting) {
-        for(Tags t : posting.getTags()){
-            Tags dupTag = tagsRepository.findTagsByTagNameAndPosting(t.getTagName(),posting);
+    private void dupTag(List<Tags> tagsList) {
+        for(Tags t : tagsList){
+            Tags dupTag = tagsRepository.findTagsByTagNameAndPosting(t.getTagName(),t.getPosting());
             if(dupTag != null){
                 throw new IllegalArgumentException("중복된 태그");
             }
@@ -70,15 +75,11 @@ public class PostingService {
     @Transactional
     public Long createPosting(PostingRequestDto postingRequestDto) {
         Member member = getMemberById(postingRequestDto.getMemberId());
-
         List<Tags> tags = Tags.createTag(postingRequestDto.getTagList().getStringTagName());
-
+        dupTag(tags);
         Posting posting = Posting.createPosting(member,postingRequestDto,tags);
-        System.out.println(posting.getTitle());
 
-//
         postingRepository.save(posting);
-
 
         return posting.getPostingId();
     }
@@ -91,26 +92,23 @@ public class PostingService {
         return postPaging
                         .stream()
                         .map(PostingResponseDto::new)
-                        .collect(Collectors.toList());
+                        .collect(toList());
     }
 
 //     내 게시물 전체 목록
-    public  PostingUserResponseDto getMemberPostings(Long memberId, int page, int size) {
-
+    public PostingUserResponseDto getMemberPostings(Long memberId, int page, int size) {
         Pageable pageable = PageRequest.of(page ,size);
-
         Member member = getMemberById(memberId);
         MemberResponseDto memberResponseDto = new MemberResponseDto(member);
 
         List<Posting> findPostingByMember = postingRepository.findAllMemberId(memberId,pageable);
-        List<PostingResponseDto> postingResponseDto = findPostingByMember.stream().map(PostingResponseDto::new).collect(Collectors.toList());
+        List<PostingResponseDto> postingResponseDto = findPostingByMember.stream().map(PostingResponseDto::new).collect(toList());
+
 
         List<TagNameAndCount> tagList = tagsRepository.findAll(memberId);
-        List<TagResponseDto> tagResponseDto = tagList.stream().map(tag->new TagResponseDto(tag)).collect(Collectors.toList());
-
+        List<TagResponseDto> tagResponseDto = tagList.stream().map(TagResponseDto::new).collect(toList());
 
         PostingUserResponseDto postingUserResponseDto =new PostingUserResponseDto(postingResponseDto,tagResponseDto,memberResponseDto);
-
         return postingUserResponseDto;
 
     }
@@ -123,8 +121,31 @@ public class PostingService {
         List<CommentResponseDto> commentResponseDtoList = commentList
                 .stream()
                 .map(CommentResponseDto::new)
-                .collect(Collectors.toList());
+                .collect(toList());
 
         return new PostingDetailResponseDto(posting, commentResponseDtoList);
+    }
+
+    // 게시물 수정
+    @Transactional
+    public Long updatePosting(Long postId, PostingRequestDto postingRequestDto, String memberEmail) {
+        // 게시물 존재 여부 확인
+        Posting posting = getPost(postId);
+        Member member = getMemberByEmail(memberEmail);
+
+        // 업데이트 태그(리퀘스트)
+        List<Tags> updateTags = Tags.updateTag(postingRequestDto.getTagList().getStringTagName());
+
+        // 권한 체크
+        validateMember(member, postingRequestDto.getMemberId());
+
+        // 현재 태그
+        List<Tags> tags = getTag(posting);
+        tagsRepository.deleteAll(tags);
+
+        // 태그 중복확인
+        dupTag(updateTags);
+        posting.updatePosting(postingRequestDto,updateTags);
+        return posting.getPostingId();
     }
 }

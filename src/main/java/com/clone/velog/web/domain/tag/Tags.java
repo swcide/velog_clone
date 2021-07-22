@@ -49,7 +49,6 @@ public class Tags {
 
 
     //== 태그 생성 ==//
-
     public static List<Tags> createTag(List<String> stringTagName) {
         List<Tags> tagsList = stringTagName
                 .stream()
@@ -58,4 +57,10 @@ public class Tags {
         return tagsList;
     }
 
+
+    public static List<Tags> updateTag(List<String> stringTagName) {
+        List<Tags> tagsList = stringTagName.stream().map(Tags::new).collect(Collectors.toList());
+
+        return tagsList;
+    }
 }

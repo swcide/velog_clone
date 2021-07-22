@@ -1,4 +1,4 @@
-package com.clone.velog.web.dto.response;
+package com.clone.velog.web.dto.response.member;
 
 import com.clone.velog.web.domain.member.Member;
 import lombok.AllArgsConstructor;
@@ -30,7 +30,6 @@ public class MemberResponseDto {
         this.profileImg =member.getProfileImg();
         this.github =member.getGithub();
         this.comment = member.getComment();
-
     }
 
 

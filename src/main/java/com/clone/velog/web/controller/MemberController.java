@@ -1,13 +1,12 @@
 package com.clone.velog.web.controller;
 
-import com.clone.velog.web.domain.member.Member;
-import com.clone.velog.web.dto.request.MemberRequestDto;
-import com.clone.velog.web.dto.response.MemberResponseDto;
-import com.clone.velog.web.dto.response.TokenWithMemberResponseDto;
 import com.clone.velog.config.jwt.dto.TokenDto;
 import com.clone.velog.config.jwt.dto.TokenRequestDto;
 import com.clone.velog.config.jwt.service.AuthService;
 import com.clone.velog.service.MemberService;
+import com.clone.velog.web.dto.request.MemberRequestDto;
+import com.clone.velog.web.dto.response.member.MemberResponseDto;
+import com.clone.velog.web.dto.response.member.TokenWithMemberResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -54,7 +53,7 @@ public class MemberController {
     @GetMapping("/setting/{memberId}")
     public ResponseEntity<MemberResponseDto> getMemberDetail(@PathVariable Long memberId, @AuthenticationPrincipal UserDetails userDetails){
         String email = userDetails.getUsername();
-        memberService.getMemberDetail(memberId, email);
+//        memberService.getMemberDetail(memberId, email);
         return ResponseEntity.ok().build();
     }
 

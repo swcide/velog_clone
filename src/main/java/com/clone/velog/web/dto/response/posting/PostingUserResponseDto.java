@@ -1,6 +1,7 @@
-package com.clone.velog.web.dto.response;
+package com.clone.velog.web.dto.response.posting;
 
-import lombok.AllArgsConstructor;
+import com.clone.velog.web.dto.response.member.MemberResponseDto;
+import com.clone.velog.web.dto.response.tag.TagResponseDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
