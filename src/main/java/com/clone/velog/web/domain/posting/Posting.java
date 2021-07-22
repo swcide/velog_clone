@@ -2,11 +2,15 @@ package com.clone.velog.web.domain.posting;
 
 import com.clone.velog.web.domain.common.Timestamped;
 import com.clone.velog.web.domain.member.Member;
+import com.clone.velog.web.domain.tag.Tags;
 import com.clone.velog.web.dto.request.PostingRequestDto;
 import com.clone.velog.exception.ApiRequestException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -38,26 +42,78 @@ public class Posting extends Timestamped {
 
     //img url
     @Column
-    private String originalFileName;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    private String imgUrl;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member;
 
 
+    @OneToMany(
+            mappedBy = "posting",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<Tags> tags = new ArrayList<>();
+
+
+
+
+
 
     @Builder
-    public Posting(String title, String content, Long likeCount, Member member, String contentMd, String previewText, String originalFileName) {
+    public Posting(Long id,String title, String content, Long likeCount, Member member, String contentMd, String previewText, String imgUrl,List<Tags>tags) {
+        this.postingId=id;
         this.title = title;
         this.content = content;
         this.likeCount = likeCount;
         this.member = member;
+        this.tags = tags;
         this.status = true;
         this.likeCount = 0L;
         this.contentMd = contentMd;
         this.previewText = previewText;
-        this.originalFileName = originalFileName;
+        this.imgUrl = imgUrl;
     }
+
+    public Posting(Member member) {
+        this.member =member;
+    }
+
+
+    public Posting(String title, String content, String contentMd, String previewText, Member member) {
+        this.title = title;
+        this. content = content;
+        this.contentMd =contentMd;
+        this.previewText = previewText;
+        this. member = member;
+
+    }
+
+
+
+    public void addTags(Tags tags) {
+
+        this.tags.add(tags);
+        tags.setPosting(this);
+
+    }
+
+    public static Posting createPosting(Member member,PostingRequestDto postingRequestDto,List<Tags> tags ){
+        Posting posting =new Posting(
+                postingRequestDto.getTitle(),
+                postingRequestDto.getContent(),
+                postingRequestDto.getContentMd(),
+                postingRequestDto.getPreviewText(),
+                member
+        );
+
+        for (Tags tag : tags) {
+            posting.addTags(tag);
+        }
+
+        return posting;
+    }
+
 
     // 업데이트
     public void updatePosting(PostingRequestDto postingRequestDto){
@@ -79,6 +135,7 @@ public class Posting extends Timestamped {
             throw new ApiRequestException("내용은 필수 입력값입니다.");
         }
     }
+
 
 
 }

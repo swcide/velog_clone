@@ -1,14 +1,11 @@
 package com.clone.velog.web.controller;
 
 import com.clone.velog.web.dto.request.PostingRequestDto;
-import com.clone.velog.web.dto.request.TagsRequestDto;
-import com.clone.velog.web.dto.response.PostingAllResponseDto;
+import com.clone.velog.web.dto.response.PostingUserResponseDto;
 import com.clone.velog.web.dto.response.PostingDetailResponseDto;
-import com.clone.velog.web.domain.posting.Posting;
 import com.clone.velog.service.PostingService;
 import com.clone.velog.web.dto.response.PostingResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +34,7 @@ public class PostingController {
 
     // member에 따른 전체 게시물 목록
     @GetMapping("/{memberId}")
-    public  PostingAllResponseDto getMemberPostings(@PathVariable Long memberId){
+    public PostingUserResponseDto getMemberPostings(@PathVariable Long memberId){
         int page = 1;
         int size = 10;
 
@@ -58,21 +55,21 @@ public class PostingController {
     }
 
     // 게시물 수정
-    @PutMapping("/update/{postId}")
-    public Long updatePosting(@PathVariable Long postId, @RequestBody PostingRequestDto postingRequestDto,@AuthenticationPrincipal UserDetails userDetails){
-        // 현재 로그인한 유저 정보
-        String memberEmail = userDetails.getUsername();
-        System.out.println(memberEmail);
-        return postingService.updatePosting(postId, postingRequestDto, memberEmail);
-    }
-
-    // 게시물 삭제
-    @PutMapping("/delete/{postId}")
-    public Long deletePosting(@PathVariable Long postId,@AuthenticationPrincipal UserDetails userDetails){
-        String memberEmail = userDetails.getUsername();
-
-        System.out.println(memberEmail);
-        return postingService.deletePosting(postId,memberEmail);
-    }
+//    @PutMapping("/update/{postId}")
+//    public Long updatePosting(@PathVariable Long postId, @RequestBody PostingRequestDto postingRequestDto,@AuthenticationPrincipal UserDetails userDetails){
+//        // 현재 로그인한 유저 정보
+//        String memberEmail = userDetails.getUsername();
+//        System.out.println(memberEmail);
+//        return postingService.updatePosting(postId, postingRequestDto, memberEmail);
+//    }
+//
+//    // 게시물 삭제
+//    @PutMapping("/delete/{postId}")
+//    public Long deletePosting(@PathVariable Long postId,@AuthenticationPrincipal UserDetails userDetails){
+//        String memberEmail = userDetails.getUsername();
+//
+//        System.out.println(memberEmail);
+//        return postingService.deletePosting(postId,memberEmail);
+//    }
 
 }

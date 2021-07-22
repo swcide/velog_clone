@@ -2,10 +2,13 @@ package com.clone.velog.web.controller;
 
 import com.clone.velog.web.dto.request.CommentRequestDto;
 import com.clone.velog.service.CommentService;
+import com.clone.velog.web.dto.response.CommentResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/comment")
@@ -19,8 +22,14 @@ public class CommentController {
         this.commentService = commentService;
     }
 
+    // 댓글 조회
+    @GetMapping("/{postId}")
+    public List<CommentResponseDto> getAllComment(@PathVariable Long postId){
+        return commentService.getAllComment(postId);
+    }
+
     // 댓글 생성
-    @PostMapping("/{postId}/")
+    @PostMapping("/{postId}")
     public Long createComment(@PathVariable Long postId, @RequestBody CommentRequestDto commentRequestDto){
         return commentService.createComment(commentRequestDto, postId);
     }

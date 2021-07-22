@@ -8,20 +8,15 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-public class PostingAllResponseDto {
+public class PostingUserResponseDto {
     private List<PostingResponseDto> postingResponseDto;
     private List<TagResponseDto> tagList;
-    private List<TagNameAndCount> tagNameAndCounts;
     private MemberResponseDto memberResponseDto;
 
 
-
-
-    public PostingAllResponseDto(List<PostingResponseDto> postingResponseDto, List<TagNameAndCount> tagResponseDto2,MemberResponseDto memberResponseDto) {
+    public PostingUserResponseDto(List<PostingResponseDto> postingResponseDto, List<TagResponseDto> tagResponseDto, MemberResponseDto memberResponseDto) {
         this.postingResponseDto = postingResponseDto;
-        this.tagNameAndCounts =tagResponseDto2;
-        this.memberResponseDto =memberResponseDto;
+        this.tagList = tagResponseDto;
+        this.memberResponseDto = memberResponseDto;
     }
-
 }

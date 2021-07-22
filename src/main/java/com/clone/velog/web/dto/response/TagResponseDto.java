@@ -26,4 +26,10 @@ public class TagResponseDto {
         this.tagName =tags.getTagName();
     }
 
+    public TagResponseDto(TagNameAndCount tag) {
+        this.tagId = tag.getTagId();
+        this.tagName =tag.getTagName();
+        this.postId =tag.getPosting().getPostingId();
+        this.count =tag.getCount();
+    }
 }

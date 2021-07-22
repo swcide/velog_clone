@@ -1,19 +1,16 @@
 package com.clone.velog.web.dto.response;
 
-
 import com.clone.velog.web.domain.posting.Posting;
 import com.clone.velog.web.domain.tag.Tags;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Page;
-
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter
 @NoArgsConstructor
-public class PostingResponseDto {
+@Getter
+public class PostingTagResponseDto {
 
     private Long postId;
     private String title;
@@ -28,7 +25,7 @@ public class PostingResponseDto {
     private List<Tags> tags;
 
 
-    public PostingResponseDto(Posting posting) {
+    public PostingTagResponseDto(Posting posting) {
         this.postId = posting.getPostingId();
         this.title = posting.getTitle();
         this.content = posting.getContent();

@@ -1,6 +1,5 @@
 package com.clone.velog.service;
 
-import com.clone.velog.web.domain.member.MemberRepository;
 import com.clone.velog.web.domain.posting.Posting;
 import com.clone.velog.web.domain.posting.PostingRepository;
 import com.clone.velog.web.domain.tag.Tags;
@@ -22,7 +21,7 @@ public class SearchService {
 
 
     public List<PostingResponseDto> search(String query,int page, int size) {
-        Page<Posting> pagePaging = postingRepository.findByTitleContainingOrContentContainingOrderByCreatedAtDesc(query, query,PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "createdAt")));
+        List<Posting> pagePaging = postingRepository.findByTitleContainingOrContentContainingOrderByCreatedAtDesc(query, query);
         return pagePaging.stream()
                 .map(PostingResponseDto::new)
                 .collect(Collectors.toList());

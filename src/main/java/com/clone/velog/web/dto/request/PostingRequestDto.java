@@ -1,8 +1,5 @@
 package com.clone.velog.web.dto.request;
 
-import com.clone.velog.web.domain.member.Member;
-import com.clone.velog.web.domain.posting.Posting;
-
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -21,25 +18,13 @@ public class PostingRequestDto {
 //    private String originalfilename;
     private Long memberId;
     private Long likeCount;
-    private Tags tags;
+    private Tags tagList ;
     private String contentMd;
     private String previewText;
     private String originalFileName;
 
-    public Posting createPost(Member member) {
-        return Posting.builder()
-                .title(title)
-                .content(content)
-                .likeCount(likeCount)
-                .member(member)
-                .contentMd(contentMd)
-                .previewText(previewText)
-                .originalFileName(originalFileName)
-                .build();
-    }
-
     @Getter
     public static class Tags {
-        public List<String> tagName = new ArrayList<>();
+        public List<String> stringTagName = new ArrayList<>();
     }
 }

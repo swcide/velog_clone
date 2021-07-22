@@ -3,14 +3,19 @@ package com.clone.velog.web.domain.tag;
 
 import com.clone.velog.web.domain.posting.Posting;
 import com.clone.velog.web.dto.request.PostingRequestDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+
+@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +26,7 @@ public class Tags {
     @Id
     private Long tagId;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="posting_id")
     private Posting posting;
@@ -28,21 +34,28 @@ public class Tags {
     @Column
     private String tagName;
 
-    public Tags(Posting posting, String name) {
-        this.posting =posting;
-        this.tagName =name;
+
+
+
+
+    public Tags(Posting posting) {
+        this.posting = posting;
+
     }
+
+    public Tags(String tagName) {
+        this.tagName=tagName;
+    }
+
 
     //== 태그 생성 ==//
-    public static List<Tags> createTag(Posting posting, PostingRequestDto postingRequestDto) {
-        List<String> tagNameList = postingRequestDto.getTags().getTagName();
-        List<Tags> tagsList = new ArrayList<>();
-        for(String tagName : tagNameList){
-            Tags tags = new Tags(posting,tagName);
-            tagsList.add(tags);
-        }
+
+    public static List<Tags> createTag(List<String> stringTagName) {
+        List<Tags> tagsList = stringTagName
+                .stream()
+                .map(Tags::new)
+                .collect(Collectors.toList());
         return tagsList;
     }
-
 
 }
