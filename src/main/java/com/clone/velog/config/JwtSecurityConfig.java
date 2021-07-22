@@ -1,8 +1,8 @@
 package com.clone.velog.config;
 
 
-import com.clone.velog.jwt.JwtFilter;
-import com.clone.velog.jwt.TokenProvider;
+import com.clone.velog.config.jwt.JwtFilter;
+import com.clone.velog.config.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

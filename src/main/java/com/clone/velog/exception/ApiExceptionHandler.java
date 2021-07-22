@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
-    @ExceptionHandler(value = { com.hanghae.cinema.exception.ApiRequestException.class })
-    public ResponseEntity<Object> handleApiRequestException(com.hanghae.cinema.exception.ApiRequestException ex) {
+    @ExceptionHandler(value = { ApiRequestException.class})
+    public ResponseEntity<Object> handleApiRequestException(ApiRequestException ex) {
         ApiException apiException = new ApiException(
                 ex.getMessage(),
                 // HTTP 400 -> Client Error
