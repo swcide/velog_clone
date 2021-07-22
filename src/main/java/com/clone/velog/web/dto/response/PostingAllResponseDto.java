@@ -15,10 +15,7 @@ public class PostingAllResponseDto {
     private List<TagNameAndCount> tagNameAndCounts;
     private MemberResponseDto memberResponseDto;
 
-//    public PostingAllResponseDto(List<PostingResponseDto> postingResponseDto, List<TagResponseDto> tagResponseDto) {
-//        this.postingResponseDto = postingResponseDto;
-//        this.tagList =tagResponseDto;
-//    }
+
 
 
     public PostingAllResponseDto(List<PostingResponseDto> postingResponseDto, List<TagNameAndCount> tagResponseDto2,MemberResponseDto memberResponseDto) {

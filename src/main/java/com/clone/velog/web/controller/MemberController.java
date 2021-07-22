@@ -1,5 +1,6 @@
 package com.clone.velog.web.controller;
 
+import com.clone.velog.web.domain.member.Member;
 import com.clone.velog.web.dto.request.MemberRequestDto;
 import com.clone.velog.web.dto.response.MemberResponseDto;
 import com.clone.velog.web.dto.response.TokenWithMemberResponseDto;
@@ -13,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -37,7 +40,7 @@ public class MemberController {
 
     // 회원가입
     @PostMapping("/register")
-    public ResponseEntity<MemberResponseDto> signup(@RequestBody MemberRequestDto memberRequestDto) {
+    public ResponseEntity<MemberResponseDto> signup(@Valid @RequestBody MemberRequestDto memberRequestDto) {
         return ResponseEntity.ok(authService.signup(memberRequestDto));
     }
 
@@ -46,6 +49,13 @@ public class MemberController {
     public ResponseEntity<TokenWithMemberResponseDto> login(@RequestBody MemberRequestDto memberRequestDto) {
         return ResponseEntity.ok(authService.login(memberRequestDto));
     }
+    @PutMapping("/update")
+    public ResponseEntity<Void> memberUpdate (@AuthenticationPrincipal UserDetails userDetails ,@RequestBody MemberRequestDto memberRequestDto){
+        String email = userDetails.getUsername();
+        memberService.memberUpdate(memberRequestDto,email);
+        return ResponseEntity.ok().build();
+    }
+
 
     // 탈퇴
     @PutMapping("/withdrawal")

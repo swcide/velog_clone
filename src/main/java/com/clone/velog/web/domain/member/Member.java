@@ -2,7 +2,6 @@ package com.clone.velog.web.domain.member;
 
 import com.clone.velog.web.domain.common.Authority;
 import com.clone.velog.web.domain.common.Timestamped;
-import com.clone.velog.web.domain.posting.Posting;
 import com.clone.velog.web.dto.request.MemberRequestDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -52,7 +51,7 @@ public class Member extends Timestamped {
 
 
     @Builder
-    public Member(Long id, String email, String pwd, String nickName, String velogName, String comment, boolean status, String profileImg, String github, Authority authority) {
+public Member(Long id, String email, String pwd, String nickName, String velogName, String comment, boolean status, String profileImg, String github, Authority authority) {
         this.memberId = id;
         this.email = email;
         this.pwd = pwd;
@@ -63,9 +62,14 @@ public class Member extends Timestamped {
         this.profileImg = profileImg;
         this.github = github;
         this.authority = authority;
+
     }
 
-    public void memberStatusDelete(){
-        this.status = false;
+    public void updateMember(MemberRequestDto memberRequestDto) {
+        this.nickName = memberRequestDto.getNickName();
+        this.comment = memberRequestDto.getComment();
+        this.github = memberRequestDto.getGithub();
+        this.profileImg = memberRequestDto.getProfileImg();
+        this.pwd =memberRequestDto.getProfileImg();
     }
 }

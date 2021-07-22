@@ -1,5 +1,6 @@
 package com.clone.velog.service;
 
+
 import com.clone.velog.web.dto.response.TagNameAndCount;
 import com.clone.velog.web.domain.tag.Tags;
 import com.clone.velog.web.domain.tag.TagsRepository;
@@ -61,11 +62,16 @@ public class PostingService {
     public PostingDetailResponseDto getPostingDetail(Long postId) {
         Posting posting = getPost(postId);
         List<TagResponseDto> tagResponseDto = getTag(posting).stream().map(TagResponseDto::new).collect(Collectors.toList());
+
         List<Comment> commentList = commentRepository.findAllByPostingOrderByCreatedAtDesc(posting);
-        List<CommentResponseDto> commentResponseDtoList = commentList.stream().map(CommentResponseDto::new).collect(Collectors.toList());
+        List<CommentResponseDto> commentResponseDtoList = commentList
+                .stream()
+                .map(CommentResponseDto::new)
+                .collect(Collectors.toList());
 
         return new PostingDetailResponseDto(posting, commentResponseDtoList,tagResponseDto);
     }
+
 
     // 게시물 등록
     @Transactional
@@ -73,17 +79,19 @@ public class PostingService {
         Member member = getMemberById(postingRequestDto.getMemberId());
         Posting posting = postingRequestDto.createPost(member);
 
+
         //포스트 flush -> postId가 존재
         postingRepository.save(posting);
         List<Tags> tags = Tags.createTag(posting,postingRequestDto);
 
-
         dupTag(posting, tags);
-
         tagsRepository.saveAll(tags);
+
 
         return posting.getPostingId();
     }
+
+
 
     // 게시물 수정
     @Transactional
@@ -115,6 +123,9 @@ public class PostingService {
         return posting.getPostingId();
     }
 
+
+
+
     // 게시물 삭제
     @Transactional
     public Long deletePosting(Long postId, String memberEmail){
@@ -132,6 +143,8 @@ public class PostingService {
         posting.deletePosting();
         return getPost(postId).getPostingId();
     }
+
+
 
     private List<Tags> getTag(Posting posting) {
         return tagsRepository.findAllByPosting(posting);

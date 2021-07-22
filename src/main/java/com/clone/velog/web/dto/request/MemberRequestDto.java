@@ -5,9 +5,11 @@ import com.clone.velog.web.domain.member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.persistence.Column;
 import javax.validation.constraints.*;
 
 @Getter
@@ -18,16 +20,18 @@ public class MemberRequestDto {
     @NotEmpty(message = "이메일을 입력하세요.")
     @Email(message = "올바른 이메일을 입력하세요")
     private String email;
-
     @Size(min = 4)
     @NotEmpty(message = "비밀번호를 입력하세요")
     private String pwd;
-
-//    private String pwdCheck;
-
     @Size(max = 10)
     @NotEmpty
     private String nickName;
+    private String velogName;
+    private String comment;
+    private boolean status;
+    private String profileImg;
+    private String github;
+
 
     public Member toMember(PasswordEncoder passwordEncoder) {
         return Member.builder()

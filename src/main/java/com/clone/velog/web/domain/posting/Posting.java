@@ -7,7 +7,6 @@ import com.clone.velog.exception.ApiRequestException;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -44,6 +43,7 @@ public class Posting extends Timestamped {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
 
 
     @Builder

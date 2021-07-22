@@ -6,6 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class TagNameAndCount {
+
     String tagName;
+    String postingId;
     Long count;
 }

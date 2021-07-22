@@ -21,18 +21,16 @@ public class CommentService {
     private final PostingRepository postingRepository;
     private final MemberRepository memberRepository;
 
-//    @Autowired
-//    public CommentService(CommentRepository commentRepository, PostingRepository postingRepository){
-//        this.commentRepository = commentRepository;
-//        this.postingRepository = postingRepository;
-//    }
+
 
     // 댓글 생성
     @Transactional
     public Long createComment(CommentRequestDto commentRequestDto, Long postId) {
-        Posting posting = postingRepository.findById(postId).orElseThrow(()-> new ApiRequestException("해당 게시글이 존재하지 않습니다.")                );
+        Posting posting = postingRepository.findById(postId)
+                .orElseThrow(()-> new ApiRequestException("해당 게시글이 존재하지 않습니다.")                );
 
-        Member member = memberRepository.findById(commentRequestDto.getMemberId()).orElseThrow(()-> new ApiRequestException("멤버가 존재하지 않습니다."));
+        Member member = memberRepository.findById(commentRequestDto.getMemberId())
+                .orElseThrow(()-> new ApiRequestException("멤버가 존재하지 않습니다."));
 
         Comment comment = new Comment(commentRequestDto, posting, member);
         return commentRepository.save(comment).getCommentId();
