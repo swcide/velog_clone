@@ -30,12 +30,12 @@ public class AuthService {
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
 
-    // 회원가입 예외처리
-    @Transactional
-    public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
-        // 이메일 , 닉네임 예외처리
-        isEmailAndNickNameDuplicated(memberRequestDto);
-        // 비밀번호 체크
+        // 회원가입 예외처리
+        @Transactional
+        public MemberResponseDto signup( MemberRequestDto memberRequestDto) {
+            // 이메일 , 닉네임 예외처리
+            isEmailAndNickNameDuplicated(memberRequestDto);
+            // 비밀번호 체크
 //        memberRequestDto.pwdCheck();
 
         Member member = memberRequestDto.toMember(passwordEncoder);
@@ -113,6 +113,7 @@ public class AuthService {
             throw new ApiRequestException("이미 사용 중인 별명입니다.");
         }
     }
+
 
 }
 

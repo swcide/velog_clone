@@ -49,18 +49,29 @@ public class MemberController {
     public ResponseEntity<TokenWithMemberResponseDto> login(@RequestBody MemberRequestDto memberRequestDto) {
         return ResponseEntity.ok(authService.login(memberRequestDto));
     }
-    @PutMapping("/update")
-    public ResponseEntity<Void> memberUpdate (@AuthenticationPrincipal UserDetails userDetails ,@RequestBody MemberRequestDto memberRequestDto){
+
+    // 회원 프로필 조회
+    @GetMapping("/setting/{memberId}")
+    public ResponseEntity<MemberResponseDto> getMemberDetail(@PathVariable Long memberId, @AuthenticationPrincipal UserDetails userDetails){
         String email = userDetails.getUsername();
-        memberService.memberUpdate(memberRequestDto,email);
+        memberService.getMemberDetail(memberId, email);
         return ResponseEntity.ok().build();
     }
 
+    // 회원 프로필 수정
+    @PutMapping("/setting/{memberId}")
+    public ResponseEntity<Void> updateMemberDetail (@PathVariable Long memberId,
+            @AuthenticationPrincipal UserDetails userDetails, @RequestBody MemberRequestDto memberRequestDto){
+        String email = userDetails.getUsername();
+        memberService.updateMemberDetail(memberRequestDto,email, memberId);
+        return ResponseEntity.ok().build();
+    }
 
     // 탈퇴
     @PutMapping("/withdrawal")
     public ResponseEntity<Void> withdrawal(@AuthenticationPrincipal UserDetails userDetails) {
-        memberService.withdrawal(userDetails.getUsername());
+        String email = userDetails.getUsername();
+        memberService.withdrawal(email);
         return ResponseEntity.ok().build();
     }
 
