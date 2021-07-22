@@ -72,4 +72,9 @@ public Member(Long id, String email, String pwd, String nickName, String velogNa
         this.profileImg = memberRequestDto.getProfileImg();
         this.pwd =memberRequestDto.getProfileImg();
     }
+
+    // 탈퇴
+    public void memberStatusDelete(){
+        this.status = false;
+    }
 }
