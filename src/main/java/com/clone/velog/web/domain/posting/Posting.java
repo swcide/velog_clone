@@ -5,7 +5,9 @@ import com.clone.velog.web.domain.member.Member;
 import com.clone.velog.web.domain.tag.Tags;
 import com.clone.velog.web.dto.request.PostingRequestDto;
 import com.clone.velog.exception.ApiRequestException;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,8 +20,10 @@ import java.util.List;
 @ToString
 public class Posting extends Timestamped {
 
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+//    @Column(name="posting_id")
     private Long postingId;
 
     @Column(nullable = false)
@@ -135,7 +139,6 @@ public class Posting extends Timestamped {
             throw new ApiRequestException("내용은 필수 입력값입니다.");
         }
     }
-
 
 
 }

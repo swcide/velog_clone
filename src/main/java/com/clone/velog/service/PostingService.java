@@ -31,6 +31,95 @@ public class PostingService {
     private final TagsRepository tagsRepository;
 
 
+
+    //게시글 전체
+//    public List<PostingResponseDto> getAllPosting(int page,int size){
+//
+//        Page<Posting> pagePaging = postingRepository.findAll(PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "createdAt")));
+//        List<PostingResponseDto> postingResponseDto = pagePaging.getContent().stream().map(PostingResponseDto::new).collect(Collectors.toList());
+//
+//
+//        return postingResponseDto;
+//    }
+//
+//
+//
+
+//
+//
+//    // 게시물 등록
+//    @Transactional
+//    public Long createPosting(PostingRequestDto postingRequestDto) {
+//        Member member = getMemberById(postingRequestDto.getMemberId());
+//        Posting posting = postingRequestDto.createPost(member);
+//
+//        //포스트 flush -> postId가 존재
+//        postingRepository.save(posting);
+//        List<Tags> tags = Tags.createTag(posting,postingRequestDto);
+//
+//
+//        dupTag(posting, tags);
+//
+//        tagsRepository.saveAll(tags);
+//
+//        return posting.getPostingId();
+//    }
+//
+//
+//
+//    // 게시물 수정
+//    @Transactional
+//    public Long updatePosting(Long postId, PostingRequestDto postingRequestDto, String memberEmail) {
+//        // 게시물 존재 여부 확인
+//
+//        Posting posting = getPost(postId);
+//        Member member = getMemberByEmail(memberEmail);
+//
+//        // 업데이트 태그
+//        List<Tags> updateTags = Tags.createTag(posting,postingRequestDto);
+//
+//        // 현재 태그
+//        List<Tags> tags = getTag(posting);
+//
+//
+//
+//        // 게시자 확인
+//        validateMember(member, postingRequestDto.getMemberId());
+//
+//
+//        tagsRepository.deleteAll(tags);
+//
+//        // 태그 중복확인
+//        dupTag(posting, updateTags);
+//        tagsRepository.saveAll(updateTags);
+//
+//        posting.updatePosting(postingRequestDto);
+//        return posting.getPostingId();
+//    }
+//
+//
+//
+//
+//    // 게시물 삭제
+//    @Transactional
+//    public Long deletePosting(Long postId, String memberEmail){
+//        Posting posting = getPost(postId);
+//        Member member = getMemberByEmail(memberEmail);
+//
+//        // 작성자 체크
+//        validateMember(member, postId);
+//
+//        // 현재 게시물 태그
+//        List<Tags> tags = getTag(posting);
+//
+//
+//        tagsRepository.deleteByPosting(posting);
+//        posting.deletePosting();
+//        return getPost(postId).getPostingId();
+//    }
+
+
+
     private List<Tags> getTag(Posting posting) {
         return tagsRepository.findAllByPosting(posting);
     }
@@ -43,10 +132,10 @@ public class PostingService {
     private Member getMemberByEmail(String memberEmail) {
         return memberRepository.findByEmail(memberEmail).orElseThrow(()-> new ApiRequestException("찾는 유저 없습니다."));
     }
-
     private Posting getPost(Long postId) {
         return postingRepository.findById(postId).orElseThrow(()-> new ApiRequestException("해당 게시물이 존재하지 않습니다."));
     }
+
 
     private void validateMember(Member member, Long memberId) {
         if (!memberId.equals(member.getMemberId())) {
@@ -110,7 +199,9 @@ public class PostingService {
         PostingUserResponseDto postingUserResponseDto =new PostingUserResponseDto(postingResponseDto,tagResponseDto,memberResponseDto);
 
         return postingUserResponseDto;
+
     }
+
 
     // 게시물 상세
     public PostingDetailResponseDto getPostingDetail(Long postId) {

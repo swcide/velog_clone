@@ -25,7 +25,10 @@ public class CommentService {
     private final PostingRepository postingRepository;
     private final MemberRepository memberRepository;
 
-    // 댓글 조회
+
+
+
+
     public List<CommentResponseDto> getAllComment(Long postId) {
         Posting posting = getPosting(postId);
         List<Comment> comments = commentRepository.findAllByPostingOrderByCreatedAtDesc(posting);
@@ -48,11 +51,13 @@ public class CommentService {
         return commentRepository.save(comment).getCommentId();
     }
 
+
+
     // 댓글 수정
     @Transactional
     public Long updateComment(Long commentId, CommentRequestDto commentRequestDto,String memberEmail) {
         Comment comment = getComment(commentId);
-        Member member = getMember(memberEmail);
+        Member member = getMemberByEmail(memberEmail);
 
         comment.update(commentRequestDto,member);
         return comment.getCommentId();
@@ -62,7 +67,7 @@ public class CommentService {
     @Transactional
     public Long deleteComment(Long commentId,String memberEmail) {
         Comment comment = getComment(commentId);
-        Member member = getMember(memberEmail);
+        Member member = getMemberByEmail(memberEmail);
         if(!comment.getMember().getMemberId().equals(member.getMemberId())) {
             throw new ApiRequestException("수정할 권한이 없습니다.");
         }
@@ -80,10 +85,15 @@ public class CommentService {
         return postingRepository.findById(postId)
                 .orElseThrow(()-> new ApiRequestException("해당 게시글이 존재하지 않습니다.")                );
     }
-    private Member getMember(String memberEmail) {
+    private Member getMemberByEmail(String memberEmail) {
         return memberRepository.findByEmail(memberEmail).orElseThrow(()->new ApiRequestException("멤버가 존재하지 않습니다."));
     }
     private Comment getComment(Long commentId) {
         return commentRepository.findById(commentId).orElseThrow(()->new ApiRequestException("해당 댓글이 존재하지 않습니다."));
     }
+
+
+
+
+//    public
 }

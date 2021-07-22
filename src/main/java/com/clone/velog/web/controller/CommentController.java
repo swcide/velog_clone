@@ -22,7 +22,7 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    // 댓글 조회
+
     @GetMapping("/{postId}")
     public List<CommentResponseDto> getAllComment(@PathVariable Long postId){
         return commentService.getAllComment(postId);
@@ -31,6 +31,7 @@ public class CommentController {
     // 댓글 생성
     @PostMapping("/{postId}")
     public Long createComment(@PathVariable Long postId, @RequestBody CommentRequestDto commentRequestDto){
+
         return commentService.createComment(commentRequestDto, postId);
     }
 
