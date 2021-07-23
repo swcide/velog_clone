@@ -50,9 +50,6 @@ public class Member extends Timestamped {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
-
-
-
     @Builder
     public Member(Long id, String email, String pwd, String nickName, String velogName, String comment, boolean status, String profileImg, String github, Authority authority) {
         this.memberId = id;
@@ -67,9 +64,6 @@ public class Member extends Timestamped {
         this.authority = authority;
     }
 
-    public void memberStatusDelete(){
-        this.status = false;
-    }
 
     public void updateMember(MemberRequestDto memberRequestDto) {
         this.nickName = memberRequestDto.getNickName();
@@ -77,5 +71,10 @@ public class Member extends Timestamped {
         this.github = memberRequestDto.getGithub();
         this.profileImg = memberRequestDto.getProfileImg();
         this.pwd =memberRequestDto.getProfileImg();
+    }
+
+    // 탈퇴
+    public void memberStatusDelete(){
+        this.status = false;
     }
 }

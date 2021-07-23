@@ -1,8 +1,10 @@
-package com.clone.velog.web.dto.response;
+package com.clone.velog.web.dto.response.posting;
 
 
 import com.clone.velog.web.domain.posting.Posting;
-import com.clone.velog.web.domain.tag.Tags;
+import com.clone.velog.web.dto.response.comment.CommentResponseDto;
+import com.clone.velog.web.dto.response.member.MemberResponseDto;
+import com.clone.velog.web.dto.response.tag.TagResponseDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,6 +27,7 @@ public class PostingDetailResponseDto {
     private LocalDateTime modifiedAt;
     private List<CommentResponseDto> commentResponseDtoList;
     private List<TagResponseDto> tagResponseDtoList;
+    private MemberResponseDto memberResponseDto;
 
     public PostingDetailResponseDto(Posting posting, List<CommentResponseDto> commentResponseDtoList){
         this.postId = posting.getPostingId();
@@ -39,5 +42,6 @@ public class PostingDetailResponseDto {
         this.contentMd = posting.getContentMd();
         this.previewText = posting.getPreviewText();
         this.imgUrl = posting.getImgUrl();
+        this.memberResponseDto = new MemberResponseDto(posting.getMember());
     }
 }

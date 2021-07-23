@@ -59,11 +59,6 @@ public class Posting extends Timestamped {
             cascade = CascadeType.ALL)
     private List<Tags> tags = new ArrayList<>();
 
-
-
-
-
-
     @Builder
     public Posting(Long id,String title, String content, Long likeCount, Member member, String contentMd, String previewText, String imgUrl,List<Tags>tags) {
         this.postingId=id;
@@ -93,8 +88,6 @@ public class Posting extends Timestamped {
 
     }
 
-
-
     public void addTags(Tags tags) {
 
         this.tags.add(tags);
@@ -120,10 +113,13 @@ public class Posting extends Timestamped {
 
 
     // 업데이트
-    public void updatePosting(PostingRequestDto postingRequestDto){
+    public void updatePosting(PostingRequestDto postingRequestDto, List<Tags> tags){
         checkEmpty(postingRequestDto);
         this.title = postingRequestDto.getTitle();
         this.content = postingRequestDto.getContent();
+        for (Tags tag : tags) {
+            this.addTags(tag);
+        }
     }
     //삭제
     public void deletePosting() {

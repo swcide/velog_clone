@@ -2,12 +2,12 @@ package com.clone.velog.web.controller;
 
 import com.clone.velog.web.domain.member.Member;
 import com.clone.velog.web.dto.request.MemberRequestDto;
-import com.clone.velog.web.dto.response.MemberResponseDto;
-import com.clone.velog.web.dto.response.TokenWithMemberResponseDto;
 import com.clone.velog.config.jwt.dto.TokenDto;
 import com.clone.velog.config.jwt.dto.TokenRequestDto;
 import com.clone.velog.config.jwt.service.AuthService;
 import com.clone.velog.service.MemberService;
+import com.clone.velog.web.dto.response.member.MemberResponseDto;
+import com.clone.velog.web.dto.response.member.TokenWithMemberResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -49,18 +49,28 @@ public class MemberController {
     public ResponseEntity<TokenWithMemberResponseDto> login(@RequestBody MemberRequestDto memberRequestDto) {
         return ResponseEntity.ok(authService.login(memberRequestDto));
     }
-    @PutMapping("/update")
-    public ResponseEntity<Void> memberUpdate (@AuthenticationPrincipal UserDetails userDetails ,@RequestBody MemberRequestDto memberRequestDto){
+
+    // 회원 프로필 조회
+    @GetMapping("/setting")
+    public ResponseEntity<MemberResponseDto> getMemberDetail(@AuthenticationPrincipal UserDetails userDetails){
         String email = userDetails.getUsername();
-        memberService.memberUpdate(memberRequestDto,email);
+        memberService.getMemberDetail(email);
         return ResponseEntity.ok().build();
     }
 
+    // 회원 프로필 수정
+    @PutMapping("/setting")
+    public ResponseEntity<Long> updateMemberDetail (@AuthenticationPrincipal UserDetails userDetails, @RequestBody MemberRequestDto memberRequestDto){
+        String email = userDetails.getUsername();
+        memberService.updateMemberDetail(memberRequestDto, email);
+        return ResponseEntity.ok().build();
+    }
 
     // 탈퇴
     @PutMapping("/withdrawal")
     public ResponseEntity<Void> withdrawal(@AuthenticationPrincipal UserDetails userDetails) {
-        memberService.withdrawal(userDetails.getUsername());
+        String email = userDetails.getUsername();
+        memberService.withdrawal(email);
         return ResponseEntity.ok().build();
     }
 

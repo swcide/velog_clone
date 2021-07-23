@@ -1,4 +1,4 @@
-package com.clone.velog.web.dto.response;
+package com.clone.velog.web.dto.response.tag;
 
 import com.clone.velog.web.domain.posting.Posting;
 import lombok.AllArgsConstructor;

@@ -2,7 +2,7 @@ package com.clone.velog.web.controller;
 
 import com.clone.velog.web.dto.request.CommentRequestDto;
 import com.clone.velog.service.CommentService;
-import com.clone.velog.web.dto.response.CommentResponseDto;
+import com.clone.velog.web.dto.response.comment.CommentResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;

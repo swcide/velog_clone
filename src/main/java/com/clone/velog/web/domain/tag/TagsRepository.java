@@ -1,8 +1,7 @@
 package com.clone.velog.web.domain.tag;
 
 import com.clone.velog.web.domain.posting.Posting;
-import com.clone.velog.web.dto.response.TagNameAndCount;
-import com.clone.velog.web.dto.response.TagResponseDto;
+import com.clone.velog.web.dto.response.tag.TagNameAndCount;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -16,7 +15,7 @@ public interface TagsRepository extends JpaRepository<Tags, Long> {
 
 
     // 유저 개인페이지 태그 정보
-    @Query("select new com.clone.velog.web.dto.response.TagNameAndCount(t.tagId, t.tagName,t.posting ,count(t.tagName)) from Tags t where t.posting.member.memberId =:memberId  group by t.tagName order by count(t.tagName) desc ")
+    @Query("select new com.clone.velog.web.dto.response.tag.TagNameAndCount(t.tagId, t.tagName,t.posting ,count(t.tagName)) from Tags t where t.posting.member.memberId =:memberId  group by t.tagName order by count(t.tagName) desc ")
     List<TagNameAndCount> findAll(Long memberId);
 
 

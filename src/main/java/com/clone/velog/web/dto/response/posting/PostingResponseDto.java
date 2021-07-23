@@ -1,21 +1,23 @@
-package com.clone.velog.web.dto.response;
+package com.clone.velog.web.dto.response.posting;
+
 
 import com.clone.velog.web.domain.posting.Posting;
 import com.clone.velog.web.domain.tag.Tags;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@NoArgsConstructor
 @Getter
-public class PostingTagResponseDto {
+@NoArgsConstructor
+public class PostingResponseDto {
 
     private Long postId;
     private String title;
     private String content;
-    private Long memberId;
     private Long likeCount;
     private String contentMd;
     private String previewText;
@@ -23,13 +25,13 @@ public class PostingTagResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private List<Tags> tags;
+    private PostingMemberResponseDto postingMemberResponseDto;
 
 
-    public PostingTagResponseDto(Posting posting) {
+    public PostingResponseDto(Posting posting) {
         this.postId = posting.getPostingId();
         this.title = posting.getTitle();
         this.content = posting.getContent();
-        this.memberId =posting.getMember().getMemberId();
         this.likeCount =posting.getLikeCount();
         this.createdAt = posting.getCreatedAt();
         this.modifiedAt = posting.getModifiedAt();
@@ -37,5 +39,6 @@ public class PostingTagResponseDto {
         this.previewText = posting.getPreviewText();
         this.imgUrl = posting.getImgUrl();
         this.tags = posting.getTags();
+        this.postingMemberResponseDto = new PostingMemberResponseDto(posting.getMember());
     }
 }

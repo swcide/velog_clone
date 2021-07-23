@@ -1,8 +1,6 @@
 package com.clone.velog.config.jwt.service;
 
 import com.clone.velog.web.dto.request.MemberRequestDto;
-import com.clone.velog.web.dto.response.MemberResponseDto;
-import com.clone.velog.web.dto.response.TokenWithMemberResponseDto;
 import com.clone.velog.config.jwt.dto.TokenDto;
 import com.clone.velog.config.jwt.dto.TokenRequestDto;
 import com.clone.velog.exception.ApiRequestException;
@@ -11,6 +9,8 @@ import com.clone.velog.web.domain.member.Member;
 import com.clone.velog.config.jwt.domain.refresh.RefreshToken;
 import com.clone.velog.web.domain.member.MemberRepository;
 import com.clone.velog.config.jwt.domain.refresh.RefreshTokenRepository;
+import com.clone.velog.web.dto.response.member.MemberResponseDto;
+import com.clone.velog.web.dto.response.member.TokenWithMemberResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
