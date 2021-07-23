@@ -1,8 +1,6 @@
 package com.clone.velog.config.jwt.service;
 
 import com.clone.velog.web.dto.request.MemberRequestDto;
-import com.clone.velog.web.dto.response.member.MemberResponseDto;
-import com.clone.velog.web.dto.response.member.TokenWithMemberResponseDto;
 import com.clone.velog.config.jwt.dto.TokenDto;
 import com.clone.velog.config.jwt.dto.TokenRequestDto;
 import com.clone.velog.exception.ApiRequestException;
@@ -11,6 +9,8 @@ import com.clone.velog.web.domain.member.Member;
 import com.clone.velog.config.jwt.domain.refresh.RefreshToken;
 import com.clone.velog.web.domain.member.MemberRepository;
 import com.clone.velog.config.jwt.domain.refresh.RefreshTokenRepository;
+import com.clone.velog.web.dto.response.member.MemberResponseDto;
+import com.clone.velog.web.dto.response.member.TokenWithMemberResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -30,12 +30,12 @@ public class AuthService {
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
 
-        // 회원가입 예외처리
-        @Transactional
-        public MemberResponseDto signup( MemberRequestDto memberRequestDto) {
-            // 이메일 , 닉네임 예외처리
-            isEmailAndNickNameDuplicated(memberRequestDto);
-            // 비밀번호 체크
+    // 회원가입 예외처리
+    @Transactional
+    public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
+        // 이메일 , 닉네임 예외처리
+        isEmailAndNickNameDuplicated(memberRequestDto);
+        // 비밀번호 체크
 //        memberRequestDto.pwdCheck();
 
         Member member = memberRequestDto.toMember(passwordEncoder);
@@ -113,7 +113,6 @@ public class AuthService {
             throw new ApiRequestException("이미 사용 중인 별명입니다.");
         }
     }
-
 
 }
 

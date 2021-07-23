@@ -59,11 +59,6 @@ public class Posting extends Timestamped {
             cascade = CascadeType.ALL)
     private List<Tags> tags = new ArrayList<>();
 
-
-
-
-
-
     @Builder
     public Posting(Long id,String title, String content, Long likeCount, Member member, String contentMd, String previewText, String imgUrl,List<Tags>tags) {
         this.postingId=id;
@@ -92,8 +87,6 @@ public class Posting extends Timestamped {
         this. member = member;
 
     }
-
-
 
     public void addTags(Tags tags) {
 

@@ -1,4 +1,4 @@
-package com.clone.velog.web.dto.response;
+package com.clone.velog.web.dto.response.posting;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

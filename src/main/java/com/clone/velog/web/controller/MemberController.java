@@ -1,10 +1,11 @@
 package com.clone.velog.web.controller;
 
+import com.clone.velog.web.domain.member.Member;
+import com.clone.velog.web.dto.request.MemberRequestDto;
 import com.clone.velog.config.jwt.dto.TokenDto;
 import com.clone.velog.config.jwt.dto.TokenRequestDto;
 import com.clone.velog.config.jwt.service.AuthService;
 import com.clone.velog.service.MemberService;
-import com.clone.velog.web.dto.request.MemberRequestDto;
 import com.clone.velog.web.dto.response.member.MemberResponseDto;
 import com.clone.velog.web.dto.response.member.TokenWithMemberResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -50,19 +51,18 @@ public class MemberController {
     }
 
     // 회원 프로필 조회
-    @GetMapping("/setting/{memberId}")
-    public ResponseEntity<MemberResponseDto> getMemberDetail(@PathVariable Long memberId, @AuthenticationPrincipal UserDetails userDetails){
+    @GetMapping("/setting")
+    public ResponseEntity<MemberResponseDto> getMemberDetail(@AuthenticationPrincipal UserDetails userDetails){
         String email = userDetails.getUsername();
-//        memberService.getMemberDetail(memberId, email);
+        memberService.getMemberDetail(email);
         return ResponseEntity.ok().build();
     }
 
     // 회원 프로필 수정
-    @PutMapping("/setting/{memberId}")
-    public ResponseEntity<Void> updateMemberDetail (@PathVariable Long memberId,
-            @AuthenticationPrincipal UserDetails userDetails, @RequestBody MemberRequestDto memberRequestDto){
+    @PutMapping("/setting")
+    public ResponseEntity<Long> updateMemberDetail (@AuthenticationPrincipal UserDetails userDetails, @RequestBody MemberRequestDto memberRequestDto){
         String email = userDetails.getUsername();
-        memberService.updateMemberDetail(memberRequestDto,email, memberId);
+        memberService.updateMemberDetail(memberRequestDto, email);
         return ResponseEntity.ok().build();
     }
 

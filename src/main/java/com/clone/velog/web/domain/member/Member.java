@@ -50,7 +50,6 @@ public class Member extends Timestamped {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
-
     @Builder
     public Member(Long id, String email, String pwd, String nickName, String velogName, String comment, boolean status, String profileImg, String github, Authority authority) {
         this.memberId = id;
@@ -63,8 +62,8 @@ public class Member extends Timestamped {
         this.profileImg = profileImg;
         this.github = github;
         this.authority = authority;
-
     }
+
 
     public void updateMember(MemberRequestDto memberRequestDto) {
         this.nickName = memberRequestDto.getNickName();

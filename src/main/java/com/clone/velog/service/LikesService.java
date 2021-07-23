@@ -7,7 +7,7 @@ import com.clone.velog.web.domain.member.Member;
 import com.clone.velog.web.domain.member.MemberRepository;
 import com.clone.velog.web.domain.posting.Posting;
 import com.clone.velog.web.domain.posting.PostingRepository;
-import com.clone.velog.web.dto.response.LikeResponseDto;
+import com.clone.velog.web.dto.response.posting.LikeResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

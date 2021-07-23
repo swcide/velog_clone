@@ -18,7 +18,6 @@ public class PostingResponseDto {
     private Long postId;
     private String title;
     private String content;
-    private Long memberId;
     private Long likeCount;
     private String contentMd;
     private String previewText;
@@ -26,13 +25,13 @@ public class PostingResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private List<Tags> tags;
+    private PostingMemberResponseDto postingMemberResponseDto;
 
 
     public PostingResponseDto(Posting posting) {
         this.postId = posting.getPostingId();
         this.title = posting.getTitle();
         this.content = posting.getContent();
-        this.memberId =posting.getMember().getMemberId();
         this.likeCount =posting.getLikeCount();
         this.createdAt = posting.getCreatedAt();
         this.modifiedAt = posting.getModifiedAt();
@@ -40,5 +39,6 @@ public class PostingResponseDto {
         this.previewText = posting.getPreviewText();
         this.imgUrl = posting.getImgUrl();
         this.tags = posting.getTags();
+        this.postingMemberResponseDto = new PostingMemberResponseDto(posting.getMember());
     }
 }

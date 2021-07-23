@@ -8,9 +8,8 @@ import com.clone.velog.web.domain.comment.Comment;
 import com.clone.velog.web.domain.posting.Posting;
 import com.clone.velog.web.domain.comment.CommentRepository;
 import com.clone.velog.web.domain.posting.PostingRepository;
-import com.clone.velog.web.dto.response.CommentResponseDto;
+import com.clone.velog.web.dto.response.comment.CommentResponseDto;
 import lombok.RequiredArgsConstructor;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
