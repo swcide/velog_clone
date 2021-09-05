@@ -38,8 +38,6 @@ public class PostingService {
     private final TagsRepository tagsRepository;
 
 
-
-  
     // 게시글 생성 and 태그 생성
     @Transactional
     public Long createPosting(PostingRequestDto postingRequestDto) {
@@ -52,7 +50,6 @@ public class PostingService {
 
         return posting.getPostingId();
     }
-
 
 
     // 전체 게시글 조회 (최적화)
@@ -73,14 +70,20 @@ public class PostingService {
         MemberResponseDto memberResponseDto = new MemberResponseDto(member);
 
         List<Posting> findPostingByMember = postingRepository.findAllMemberId(memberId,pageable);
-        List<PostingResponseDto> postingResponseDto = findPostingByMember.stream().map(PostingResponseDto::new).collect(toList());
+
+        List<PostingResponseDto> postingResponseDto = findPostingByMember
+                .stream()
+                .map(PostingResponseDto::new)
+                .collect(toList());
 
         List<TagNameAndCount> tagList = tagsRepository.findAll(memberId);
-        List<TagResponseDto> tagResponseDto = tagList.stream().map(tag->new TagResponseDto(tag)).collect(Collectors.toList());
 
-        PostingAllByMemberResponseDto postingUserResponseDto =new PostingAllByMemberResponseDto(postingResponseDto,tagResponseDto,memberResponseDto);
+        List<TagResponseDto> tagResponseDto = tagList
+                .stream()
+                .map(TagResponseDto::new)
+                .collect(toList());
 
-        return postingUserResponseDto;
+        return new PostingAllByMemberResponseDto(postingResponseDto,tagResponseDto,memberResponseDto);
 
     }
 
@@ -88,6 +91,7 @@ public class PostingService {
     // 게시물 상세
     public PostingDetailResponseDto getPostingDetail(Long postId) {
         Posting posting = getPost(postId);
+
         List<Comment> commentList = commentRepository.findAllByPostingOrderByCreatedAtDesc(posting);
         List<CommentResponseDto> commentResponseDtoList = commentList
                 .stream()
@@ -137,26 +141,20 @@ public class PostingService {
     private List<Tags> getTag(Posting posting) {
         return tagsRepository.findAllByPosting(posting);
     }
-
-
     private Member getMemberById(Long memberId) {
         return memberRepository.findById(memberId).orElseThrow(()->new ApiRequestException("조회된 멤버가 없습니다"));
     }
-
     private Member getMemberByEmail(String memberEmail) {
         return memberRepository.findByEmail(memberEmail).orElseThrow(()-> new ApiRequestException("찾는 유저 없습니다."));
     }
     private Posting getPost(Long postId) {
         return postingRepository.findById(postId).orElseThrow(()-> new ApiRequestException("해당 게시물이 존재하지 않습니다."));
     }
-
-
     private void validateMember(Member member, Long memberId) {
         if (!memberId.equals(member.getMemberId())) {
             throw new ApiRequestException("해당 게시물에 대한 수정 권한이 없습니다.");
         }
     }
-
     private void dupTag(List<Tags> tagsList) {
         for(Tags t : tagsList){
             Tags dupTag = tagsRepository.findTagsByTagNameAndPosting(t.getTagName(),t.getPosting());

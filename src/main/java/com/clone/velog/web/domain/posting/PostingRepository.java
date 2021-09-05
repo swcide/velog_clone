@@ -11,7 +11,6 @@ public interface PostingRepository extends JpaRepository<Posting, Long> {
 
     List<Posting> findByStatusTrueAndTitleContainsOrContentContainsOrderByCreatedAtDesc(String title, String content, Pageable pageable);
 
-
     // 내 게시물 조회
     @Query("select DISTINCT p from Posting p join fetch p.tags t join fetch p.member m  where p.member.memberId = :memberId and p.status = true")
     List<Posting> findAll(Long memberId);
@@ -21,15 +20,10 @@ public interface PostingRepository extends JpaRepository<Posting, Long> {
     List<Posting> findAllPaging(PageRequest createdAt);
 
     // 회원 게시물 조회
-    @Query("select p from Posting p join fetch p.member m where p.member.memberId = :memberId  and p.status = true" )
+    @Query("select p from Posting p " +
+            "join fetch p.member m " +
+            "where p.member.memberId = :memberId  " +
+            "and p.status = true" )
     List<Posting> findAllMemberId(Long memberId, Pageable pageable);
 
-
-
-//    List<Posting> findAll(Long memberId,PageRequest createdAt);
-
-
-
-
-//    Page<Posting> findAllByMemberId(Long memberId, PageRequest pageRequest);
 }

@@ -28,6 +28,7 @@ public class PostingDetailResponseDto {
     private List<CommentResponseDto> commentResponseDtoList;
     private List<TagResponseDto> tagResponseDtoList;
     private MemberResponseDto memberResponseDto;
+    private Long count;
 
     public PostingDetailResponseDto(Posting posting, List<CommentResponseDto> commentResponseDtoList){
         this.postId = posting.getPostingId();

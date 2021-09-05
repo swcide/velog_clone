@@ -19,8 +19,6 @@ public class SearchService {
     private final PostingRepository postingRepository;
     private final TagsRepository tagsRepository;
 
-
-
     public List<PostingResponseDto> search(String query,int page, int size) {
         Pageable pageable = PageRequest.of(page ,size);
         List<Posting> pagePaging = postingRepository.findByStatusTrueAndTitleContainsOrContentContainsOrderByCreatedAtDesc(query, query,pageable);
