@@ -1,7 +1,6 @@
 package com.clone.velog.web.dto.response.member;
 
 import com.clone.velog.config.jwt.dto.TokenDto;
-import com.clone.velog.web.dto.response.member.MemberResponseDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

@@ -19,8 +19,6 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
 
-
-
     @Transactional(readOnly = true)
     public MemberResponseDto getMemberInfo(String email) {
         return memberRepository.findByEmail(email)

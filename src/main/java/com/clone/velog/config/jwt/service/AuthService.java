@@ -32,7 +32,7 @@ public class AuthService {
 
     // 회원가입 예외처리
     @Transactional
-    public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
+    public MemberResponseDto signup( MemberRequestDto memberRequestDto) {
         // 이메일 , 닉네임 예외처리
         isEmailAndNickNameDuplicated(memberRequestDto);
         // 비밀번호 체크

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TagNameAndCount {
 
+    private Long memberId;
     private Long tagId;
     private String tagName;
     private Posting posting;

@@ -1,21 +1,16 @@
 package com.clone.velog.web.domain.tag;
 
-
 import com.clone.velog.web.domain.posting.Posting;
-import com.clone.velog.web.dto.request.PostingRequestDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
-@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,33 +29,26 @@ public class Tags {
     @Column
     private String tagName;
 
-
-
-
-
-    public Tags(Posting posting) {
-        this.posting = posting;
-
-    }
-
     public Tags(String tagName) {
         this.tagName=tagName;
     }
 
+    public void addPost(Posting posting){
+        this.posting = posting;
+    }
 
     //== 태그 생성 ==//
     public static List<Tags> createTag(List<String> stringTagName) {
-        List<Tags> tagsList = stringTagName
-                .stream()
+        return stringTagName.stream()
                 .map(Tags::new)
                 .collect(Collectors.toList());
-        return tagsList;
     }
 
 
     public static List<Tags> updateTag(List<String> stringTagName) {
-        List<Tags> tagsList = stringTagName.stream().map(Tags::new).collect(Collectors.toList());
 
-        return tagsList;
+        return stringTagName.stream()
+                .map(Tags::new)
+                .collect(Collectors.toList());
     }
 }

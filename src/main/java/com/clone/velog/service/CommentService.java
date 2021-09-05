@@ -28,6 +28,7 @@ public class CommentService {
 
 
 
+
     public List<CommentResponseDto> getAllComment(Long postId) {
         Posting posting = getPosting(postId);
         List<Comment> comments = commentRepository.findAllByPostingOrderByCreatedAtDesc(posting);
@@ -43,9 +44,7 @@ public class CommentService {
     @Transactional
     public Long createComment(CommentRequestDto commentRequestDto, Long postId) {
         Posting posting = getPosting(postId);
-
         Member member = getMemberById(commentRequestDto);
-
         Comment comment = new Comment(commentRequestDto, posting, member);
         return commentRepository.save(comment).getCommentId();
     }
@@ -57,7 +56,6 @@ public class CommentService {
     public Long updateComment(Long commentId, CommentRequestDto commentRequestDto,String memberEmail) {
         Comment comment = getComment(commentId);
         Member member = getMemberByEmail(memberEmail);
-
         comment.update(commentRequestDto,member);
         return comment.getCommentId();
     }
@@ -82,7 +80,7 @@ public class CommentService {
     }
     private Posting getPosting(Long postId) {
         return postingRepository.findById(postId)
-                .orElseThrow(()-> new ApiRequestException("해당 게시글이 존재하지 않습니다.")                );
+                .orElseThrow(()-> new ApiRequestException("해당 게시글이 존재하지 않습니다."));
     }
     private Member getMemberByEmail(String memberEmail) {
         return memberRepository.findByEmail(memberEmail).orElseThrow(()->new ApiRequestException("멤버가 존재하지 않습니다."));
